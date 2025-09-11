@@ -83,6 +83,54 @@ Comentários:
 Tipos primitivos:
 Existem 4 famílias em java.
 
+Família
+Tipo primitivo
+classe invólucro
+tamanho 
+exemplo
+Lógico
+boolean
+Boolean
+1 byte
+true
+Literais
+char
+Character
+1 byte
+‘A’
+–
+String
+1 byte / cada
+“JAVA”
+Inteiros
+byte
+Byte
+1 byte
+127
+short
+Short
+2 byte
+32 767
+int
+Integer
+4 byte
+2 147 483
+long
+Long
+8 byte
+2ª(63)
+Reais
+float
+Float
+4 byte
+3.4eª(+38)
+double
+Double
+8 byte
+1.8eª(+308)
+
+
+
 Declaração de Variáveis:
 
 int idade = 3; tipo / nomeVariavel / atribuição; - variável
@@ -100,6 +148,26 @@ Character letra = new Character(‘g’);
 boolean casado = false;
 boolean casado = (boolean) false;
 Boolean casado = new Boolean(false);
+
+        </p>
+        <p>
+            Saída de dados:
+Exemplo: float nota 8.5f;
+System.out.print(“Sua nota é ” + nota);
+System.out.println(“Sua nota é ” + nota);
+System.out,printf(“Sua nota é %.2f”, nota); (2 casas decimais)
+System.out.format(“Sua nota é %.2f”, nota);
+
+Entrada de dados:
+import java.util.Scanner; // importação da classe
+
+// Instância do objeto para usar a classe.
+Scanner teclado = new Scanner(System.in); (vai monitorar a entrada padrão do sistema)
+
+exemplos de métodos dessa classe:
+int idade = teclado.nextInt();
+float salario = teclado.nextFloat();
+String nome = nextLine();
 
         </p>
     </body>
