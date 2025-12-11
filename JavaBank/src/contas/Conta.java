@@ -4,9 +4,9 @@ package contas;
 
 public class Conta {
 
-	public static void main(String[] args) {
-
-System.out.println("");
-
-	}
+	double saldo;
+	int agencia = 42;
+	int numero;
+	String titular;
+	
 }
