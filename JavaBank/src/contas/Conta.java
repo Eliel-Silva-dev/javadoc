@@ -6,13 +6,13 @@ import cliente.Cliente;
 
 public class Conta {
 
-	double saldo;
+	private double saldo;
 	int agencia = 42;
 	int numero;
 	public Cliente titular;
 
 	public void deposita(double valor) {
-		this.saldo = this.saldo + valor;
+		this.saldo += valor;
 	}
 	
 	public boolean sacar(double valor) {
@@ -35,4 +35,10 @@ public class Conta {
 			return false;
 		}
 	}
+	
+	public double getSaldo() {
+		return this.saldo;
+	}
+	
+	
 }

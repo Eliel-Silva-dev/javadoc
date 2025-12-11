@@ -17,7 +17,7 @@ public class testaBanco {
 		System.out.println(contaDoMateus.titular.nome);
 		System.out.println(contaDoMateus.titular.CPF);
 		System.out.println(contaDoMateus.titular.profissao);
-		System.out.println(contaDoMateus.saldo);
+		
 		
 	}
 }
