@@ -3,6 +3,8 @@ package para;
 public class Para {
 	
 	// Usado quando se sabe quantas vezes o loop será execultado. 
+	// a variavel contadora é inicialixada no inicio do loop 
+	//junto com a condição e o incremento
 	
 	public static void main(String[] args) {
 		
