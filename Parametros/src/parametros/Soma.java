@@ -14,5 +14,9 @@ public class Soma {
 			res += n;
 		}
 		return res;
+		// o metodo construtor é automaticamente chamado no ato da instanciação do objeto.
+		// Ele não precisa de especificação do tipo de retorno por que ele não retorna nada.
+		// Para ser um metodo construtor ele precisa term o mesmo nome da classe. ex: public Soma(...){}
+		
 	}
 }
