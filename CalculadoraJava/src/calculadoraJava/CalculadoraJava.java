@@ -1,30 +1,38 @@
 package calculadoraJava;
 
+import java.util.Scanner;
+
 public class CalculadoraJava {
 	// projeto de calculadora em Java
 	
 	public static void main(String[] args) {
-		int pos = 7;
 		
-		switch(pos) {
-			case 1:
-				System.out.println("Primeira posição");
-				break;
-			case 2:
-				System.out.println("Segunda posição");
-				break;
-			case 3:
-				System.out.println("Terceira posição");
-				break;
-			case 4:
-				System.out.println("Quarta posição");
-				break;
-			case 5:
-				System.out.println("Quinta posição");
-				break;
-			default:
-				System.out.println("Você não obteve pontos suficientes");
-				break;
+		Scanner entrada = new Scanner(System.in);
+		
+		Numero num1 = new Numero();
+		Numero num2 = new Numero();
+		Numero res = new Numero();
+		
+		char opc = 's';
+		
+		while (opc == 's') {
+			System.out.println("Calculo de soma entre dois números:");
+			System.out.println("---------------------------------------");
+
+			System.out.print("Digite o primeiro número: ");
+			num1.setValor(entrada.nextInt());
+			
+			System.out.print("Digite o segundo número: ");
+			num2.setValor(entrada.nextInt());
+			
+			res.setValor((num1.getValor() + num2.getValor()));
+			
+			System.out.printf("A soma entre %d e %d é: %d \n", num1.getValor(), num2.getValor(), res.getValor());
+			
+			System.out.println("Desejar realizar nova soma? (s/n) ");
+			
+			opc = entrada.next().toLowerCase().charAt(0);
+			
 		}
 		
 	}
