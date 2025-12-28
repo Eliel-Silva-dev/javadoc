@@ -100,6 +100,51 @@ public class JogoDaVelha {
 	}
 	
 	public static String verificaVitoria(Campo[][] velha) {
-		return "";
+		
+		String res = "";
+		
+		// verificar por linha
+		for(int l = 0; l < 3; l++) {
+			
+			if((velha[l][0].getSimbolo()==velha[l][1].getSimbolo()) && (velha[l][0].getSimbolo()==velha[l][2].getSimbolo())) {
+				
+				res = velha[l][0].getSimbolo() != ' ' ? String.valueOf(velha[l][0].getSimbolo()) : "";
+				
+				break;
+			} else {
+				continue;
+			}
+		}
+		
+		//verificar por coluna
+		for(int c = 0; c < 3; c++) {
+			
+			if((velha[0][c].getSimbolo()==velha[1][c].getSimbolo()) && (velha[0][c].getSimbolo()==velha[2][c].getSimbolo())) {
+				
+				res = velha[0][c].getSimbolo() != ' ' ? String.valueOf(velha[0][c].getSimbolo()) : "";
+				
+				break;
+			} else {
+				continue;
+			}
+		}
+		
+		//verificar na trasversal
+		
+			
+		if((velha[0][0].getSimbolo()==velha[1][1].getSimbolo()) && (velha[0][0].getSimbolo()==velha[2][2].getSimbolo())) {
+			
+			res = velha[0][0].getSimbolo() != ' ' ? String.valueOf(velha[0][0].getSimbolo()) : "";
+			
+		} 
+		
+		if((velha[0][2].getSimbolo()==velha[1][1].getSimbolo()) && (velha[0][2].getSimbolo()==velha[2][0].getSimbolo())) {
+			
+			res = velha[0][2].getSimbolo() != ' ' ? String.valueOf(velha[0][2].getSimbolo()) : "";
+			
+		} 
+		
+		return res;
+		
 	}
 }
