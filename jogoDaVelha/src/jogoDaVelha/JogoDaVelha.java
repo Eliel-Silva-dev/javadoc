@@ -20,7 +20,7 @@ public class JogoDaVelha {
 			vitoria = verificaVitoria(velha);
 			
 			if(!vitoria.equals("")) {
-				System.out.printf("Jogador %s venceu", vitoria);
+				System.out.printf("\nJogador %s venceu\n", vitoria);
 				
 				break;
 			}
@@ -43,7 +43,7 @@ public class JogoDaVelha {
 			
 		}
 		
-		System.out.printf("Fim de jogo...");
+		System.out.printf("\nFim de jogo...");
 	}
 	
 	public static void desenhaJogo(Campo[][] velha) {
