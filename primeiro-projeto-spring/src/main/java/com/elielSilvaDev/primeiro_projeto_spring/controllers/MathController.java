@@ -1,6 +1,7 @@
 package com.elielSilvaDev.primeiro_projeto_spring.controllers;
 
 import com.elielSilvaDev.primeiro_projeto_spring.exception.UnsupportedMathOperationException;
+import com.elielSilvaDev.primeiro_projeto_spring.math.SimpleMath;
 import com.elielSilvaDev.primeiro_projeto_spring.request.converters.NumberConverter;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ public class MathController {
         if(!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo))
             throw new UnsupportedMathOperationException("Please set a numeric value");
 
-        return NumberConverter.convertToDouble(numberOne) + NumberConverter.convertToDouble(numberTwo);
+        return SimpleMath.sum(NumberConverter.convertToDouble(numberOne),NumberConverter.convertToDouble(numberTwo));
     }
 
     // http://localhost:8080/math/subtraction/
@@ -31,7 +32,7 @@ public class MathController {
         if(!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo))
             throw new UnsupportedMathOperationException("Please set a numeric value");
 
-        return NumberConverter.convertToDouble(numberOne) - NumberConverter.convertToDouble(numberTwo);
+        return SimpleMath.subtraction(NumberConverter.convertToDouble(numberOne),NumberConverter.convertToDouble(numberTwo));
     }
 
     @RequestMapping("/multiplication/{numberOne}/{numberTwo}")
@@ -42,7 +43,7 @@ public class MathController {
         if(!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo))
             throw new UnsupportedMathOperationException("Please set a numeric value");
 
-        return NumberConverter.convertToDouble(numberOne) * NumberConverter.convertToDouble(numberTwo);
+        return SimpleMath.multiplication(NumberConverter.convertToDouble(numberOne),NumberConverter.convertToDouble(numberTwo));
     }
     @RequestMapping("/division/{numberOne}/{numberTwo}")
     public Double division(
@@ -52,7 +53,7 @@ public class MathController {
         if(!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo))
             throw new UnsupportedMathOperationException("Please set a numeric value");
 
-        return NumberConverter.convertToDouble(numberOne) / NumberConverter.convertToDouble(numberTwo);
+        return SimpleMath.division(NumberConverter.convertToDouble(numberOne),NumberConverter.convertToDouble(numberTwo));
     }
 
     @RequestMapping("/squareroot/{numberOne}")
@@ -62,6 +63,6 @@ public class MathController {
         if(!NumberConverter.isNumeric(numberOne))
             throw new UnsupportedMathOperationException("Please set a numeric value");
 
-        return Math.sqrt(NumberConverter.convertToDouble(numberOne));
+        return SimpleMath.squareRoot(NumberConverter.convertToDouble(numberOne));
     }
 }
