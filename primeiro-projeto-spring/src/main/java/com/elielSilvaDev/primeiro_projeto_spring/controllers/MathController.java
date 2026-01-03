@@ -1,6 +1,7 @@
 package com.elielSilvaDev.primeiro_projeto_spring.controllers;
 
 import com.elielSilvaDev.primeiro_projeto_spring.exception.UnsupportedMathOperationException;
+import com.elielSilvaDev.primeiro_projeto_spring.request.converters.NumberConverter;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,31 +16,52 @@ public class MathController {
             @PathVariable String numberOne,
             @PathVariable String numberTwo)throws IllegalArgumentException {
 
-        if(!isNumeric(numberOne) || !isNumeric(numberTwo))
+        if(!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo))
             throw new UnsupportedMathOperationException("Please set a numeric value");
 
-        return convertToDouble(numberOne) + convertToDouble(numberTwo);
+        return NumberConverter.convertToDouble(numberOne) + NumberConverter.convertToDouble(numberTwo);
     }
 
-    private boolean isNumeric(String strNumber) {
-        if (strNumber == null || strNumber.isEmpty()) return false;
-        String number = strNumber.replace(",", ".");
+    // http://localhost:8080/math/subtraction/
+    @RequestMapping("/subtraction/{numberOne}/{numberTwo}")
+    public Double subtraction(
+            @PathVariable String numberOne,
+            @PathVariable String numberTwo)throws IllegalArgumentException {
 
-        return number.matches("[-+]?[0-9]*.?[0-9]+");
-    }
-
-    private Double convertToDouble(String strNumber) {
-
-        if (strNumber == null || strNumber.isEmpty())
+        if(!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo))
             throw new UnsupportedMathOperationException("Please set a numeric value");
-        String number = strNumber.replace(",", ".");
 
-        return Double.parseDouble(number);
+        return NumberConverter.convertToDouble(numberOne) - NumberConverter.convertToDouble(numberTwo);
     }
 
-    // http://localhost:8080/math/
+    @RequestMapping("/multiplication/{numberOne}/{numberTwo}")
+    public Double multiplication(
+            @PathVariable String numberOne,
+            @PathVariable String numberTwo)throws IllegalArgumentException {
 
+        if(!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo))
+            throw new UnsupportedMathOperationException("Please set a numeric value");
 
+        return NumberConverter.convertToDouble(numberOne) * NumberConverter.convertToDouble(numberTwo);
+    }
+    @RequestMapping("/division/{numberOne}/{numberTwo}")
+    public Double division(
+            @PathVariable String numberOne,
+            @PathVariable String numberTwo)throws IllegalArgumentException {
 
-    // http://localhost:8080/math/
+        if(!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo))
+            throw new UnsupportedMathOperationException("Please set a numeric value");
+
+        return NumberConverter.convertToDouble(numberOne) / NumberConverter.convertToDouble(numberTwo);
+    }
+
+    @RequestMapping("/squareroot/{numberOne}")
+    public Double squareRoot(
+            @PathVariable String numberOne)throws IllegalArgumentException {
+
+        if(!NumberConverter.isNumeric(numberOne))
+            throw new UnsupportedMathOperationException("Please set a numeric value");
+
+        return Math.sqrt(NumberConverter.convertToDouble(numberOne));
+    }
 }
