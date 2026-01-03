@@ -1,5 +1,6 @@
 package com.elielSilvaDev.primeiro_projeto_spring.controllers;
 
+import com.elielSilvaDev.primeiro_projeto_spring.exception.UnsupportedMathOperationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,8 @@ public class MathController {
             @PathVariable String numberOne,
             @PathVariable String numberTwo)throws IllegalArgumentException {
 
-        if(!isNumeric(numberOne) || !isNumeric(numberTwo)) throw new IllegalArgumentException();
+        if(!isNumeric(numberOne) || !isNumeric(numberTwo))
+            throw new UnsupportedMathOperationException("Please set a numeric value");
 
         return convertToDouble(numberOne) + convertToDouble(numberTwo);
     }
@@ -28,7 +30,8 @@ public class MathController {
 
     private Double convertToDouble(String strNumber) {
 
-        if (strNumber == null || strNumber.isEmpty()) throw new IllegalArgumentException();
+        if (strNumber == null || strNumber.isEmpty())
+            throw new UnsupportedMathOperationException("Please set a numeric value");
         String number = strNumber.replace(",", ".");
 
         return Double.parseDouble(number);
