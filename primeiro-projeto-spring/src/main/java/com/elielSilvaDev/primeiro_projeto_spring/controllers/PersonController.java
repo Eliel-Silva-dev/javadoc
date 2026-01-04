@@ -1,6 +1,6 @@
 package com.elielSilvaDev.primeiro_projeto_spring.controllers;
 
-import com.elielSilvaDev.primeiro_projeto_spring.PersonServices;
+import com.elielSilvaDev.primeiro_projeto_spring.services.PersonServices;
 import com.elielSilvaDev.primeiro_projeto_spring.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

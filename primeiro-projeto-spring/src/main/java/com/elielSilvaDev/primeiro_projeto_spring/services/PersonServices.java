@@ -1,8 +1,9 @@
-package com.elielSilvaDev.primeiro_projeto_spring;
+package com.elielSilvaDev.primeiro_projeto_spring.services;
 
 import com.elielSilvaDev.primeiro_projeto_spring.model.Person;
+import com.elielSilvaDev.primeiro_projeto_spring.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +14,16 @@ import java.util.logging.Logger;
 public class PersonServices {
 
     private final AtomicLong counter = new AtomicLong();
-    private Logger logger = Logger.getLogger(PersonServices.class.getName());
+    private final Logger logger = Logger.getLogger(PersonServices.class.getName());
+
+    @Autowired
+    PersonRepository repository;
 
     public List<Person> findAll() {
         logger.info("Finding all people");
+
+        return repository.findAll();
+/*
         List<Person> persons = new ArrayList<Person>();
         for (int i = 0; i < 8; i++) {
             Person person = mockPerson(i);
@@ -25,6 +32,7 @@ public class PersonServices {
         }
 
         return persons;
+*/
     }
 
     public Person findById(String id) {
