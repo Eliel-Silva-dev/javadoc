@@ -1,5 +1,6 @@
 package com.elielSilvaDev.primeiro_projeto_spring.services;
 
+import com.elielSilvaDev.primeiro_projeto_spring.exception.ResourceNotFoundException;
 import com.elielSilvaDev.primeiro_projeto_spring.model.Person;
 import com.elielSilvaDev.primeiro_projeto_spring.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,12 @@ public class PersonServices {
 */
     }
 
-    public Person findById(String id) {
+    public Person findById(Long id) {
+
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this is"));
+
+        /*
         logger.info("Finding one person");
 
         Person person = new Person();
@@ -46,20 +52,23 @@ public class PersonServices {
         person.setGender("Male");
 
         return person;
+        */
     }
 
     public Person create(Person person) {
         logger.info("creating one person");
 
-        return person;
+        return repository.save(person);
     }
     public Person update(Person person) {
         logger.info("updating one person");
 
-        return person;
+        return repository.save(person);
     }
-    public void delete(String id) {
+    public void delete(Long id) {
         logger.info("Deleting one person");
+
+        //return repository.deleteById(id);
     }
     private Person mockPerson(int i) {
         Person person = new Person();
