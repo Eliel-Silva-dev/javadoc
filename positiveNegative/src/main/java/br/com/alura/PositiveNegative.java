@@ -5,15 +5,15 @@ import java.util.Scanner;
 
 public class PositiveNegative {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
 
-        System.out.print("Digite um número: ");
-        int numero = scanner.nextInt();
+        System.out.print("Enter a number: ");
+        int numero = scan.nextInt();
 
         if (numero > 0) {
-            System.out.println("Número positivo");
+            System.out.println("Positive number! ");
         } else {
-            System.out.println("Número negativo");
+            System.out.println("Negative Number! ");
         }
     }
 }
