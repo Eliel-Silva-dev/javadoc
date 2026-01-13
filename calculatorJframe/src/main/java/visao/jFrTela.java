@@ -28,26 +28,26 @@ public class jFrTela extends javax.swing.JFrame {
 
         tfValue = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton13 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
+        btAC = new javax.swing.JButton();
+        btMoreLess = new javax.swing.JButton();
+        btPercent = new javax.swing.JButton();
+        btDivision = new javax.swing.JButton();
+        btSeven = new javax.swing.JButton();
+        btEigth = new javax.swing.JButton();
+        btNine = new javax.swing.JButton();
+        btMultiply = new javax.swing.JButton();
+        btFour = new javax.swing.JButton();
+        btFive = new javax.swing.JButton();
+        btSix = new javax.swing.JButton();
+        btSubtraction = new javax.swing.JButton();
+        btOne = new javax.swing.JButton();
+        btTwo = new javax.swing.JButton();
+        btTree = new javax.swing.JButton();
+        btSum = new javax.swing.JButton();
+        btZero = new javax.swing.JButton();
+        btDote = new javax.swing.JButton();
+        btClose = new javax.swing.JButton();
+        btIquals = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Calculator");
@@ -58,75 +58,75 @@ public class jFrTela extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridLayout(5, 0));
 
-        jButton1.setText("AC");
-        jPanel1.add(jButton1);
+        btAC.setText("AC");
+        jPanel1.add(btAC);
 
-        jButton2.setText("+/-");
-        jPanel1.add(jButton2);
+        btMoreLess.setText("+/-");
+        jPanel1.add(btMoreLess);
 
-        jButton3.setText("%");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btPercent.setText("%");
+        btPercent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btPercentActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3);
+        jPanel1.add(btPercent);
 
-        jButton6.setText("/");
-        jPanel1.add(jButton6);
+        btDivision.setText("/");
+        jPanel1.add(btDivision);
 
-        jButton4.setText("7");
-        jPanel1.add(jButton4);
+        btSeven.setText("7");
+        jPanel1.add(btSeven);
 
-        jButton10.setText("8");
-        jPanel1.add(jButton10);
+        btEigth.setText("8");
+        jPanel1.add(btEigth);
 
-        jButton15.setText("9");
-        jPanel1.add(jButton15);
+        btNine.setText("9");
+        jPanel1.add(btNine);
 
-        jButton5.setText("*");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btMultiply.setText("*");
+        btMultiply.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btMultiplyActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5);
+        jPanel1.add(btMultiply);
 
-        jButton16.setText("4");
-        jPanel1.add(jButton16);
+        btFour.setText("4");
+        jPanel1.add(btFour);
 
-        jButton7.setText("5");
-        jPanel1.add(jButton7);
+        btFive.setText("5");
+        jPanel1.add(btFive);
 
-        jButton14.setText("6");
-        jPanel1.add(jButton14);
+        btSix.setText("6");
+        jPanel1.add(btSix);
 
-        jButton13.setText("-");
-        jPanel1.add(jButton13);
+        btSubtraction.setText("-");
+        jPanel1.add(btSubtraction);
 
-        jButton12.setText("1");
-        jPanel1.add(jButton12);
+        btOne.setText("1");
+        jPanel1.add(btOne);
 
-        jButton9.setText("2");
-        jPanel1.add(jButton9);
+        btTwo.setText("2");
+        jPanel1.add(btTwo);
 
-        jButton19.setText("3");
-        jPanel1.add(jButton19);
+        btTree.setText("3");
+        jPanel1.add(btTree);
 
-        jButton18.setText("+");
-        jPanel1.add(jButton18);
+        btSum.setText("+");
+        jPanel1.add(btSum);
 
-        jButton17.setText("0");
-        jPanel1.add(jButton17);
+        btZero.setText("0");
+        jPanel1.add(btZero);
 
-        jButton8.setText(".");
-        jPanel1.add(jButton8);
+        btDote.setText(".");
+        jPanel1.add(btDote);
 
-        jButton11.setText("Fecahr");
-        jPanel1.add(jButton11);
+        btClose.setText("Fecahr");
+        jPanel1.add(btClose);
 
-        jButton20.setText("=");
-        jPanel1.add(jButton20);
+        btIquals.setText("=");
+        jPanel1.add(btIquals);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,13 +152,13 @@ public class jFrTela extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btPercentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPercentActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btPercentActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btMultiplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMultiplyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btMultiplyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,26 +166,26 @@ public class jFrTela extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton btAC;
+    private javax.swing.JButton btClose;
+    private javax.swing.JButton btDivision;
+    private javax.swing.JButton btDote;
+    private javax.swing.JButton btEigth;
+    private javax.swing.JButton btFive;
+    private javax.swing.JButton btFour;
+    private javax.swing.JButton btIquals;
+    private javax.swing.JButton btMoreLess;
+    private javax.swing.JButton btMultiply;
+    private javax.swing.JButton btNine;
+    private javax.swing.JButton btOne;
+    private javax.swing.JButton btPercent;
+    private javax.swing.JButton btSeven;
+    private javax.swing.JButton btSix;
+    private javax.swing.JButton btSubtraction;
+    private javax.swing.JButton btSum;
+    private javax.swing.JButton btTree;
+    private javax.swing.JButton btTwo;
+    private javax.swing.JButton btZero;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField tfValue;
     // End of variables declaration//GEN-END:variables
