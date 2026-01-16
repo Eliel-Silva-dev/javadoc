@@ -2,7 +2,7 @@ package br.com.alura.screenmatch.model;
 
 import br.com.alura.screenmatch.services.Classificavel;
 
-public class episode implements Classificavel {
+public class Episode implements Classificavel {
     private int numero;
     private String nome;
     private Series serie;

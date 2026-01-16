@@ -1,39 +1,58 @@
 package br.com.alura.screenmatch;
 
+import br.com.alura.screenmatch.model.Episode;
 import br.com.alura.screenmatch.model.Film;
 import br.com.alura.screenmatch.model.Series;
 import br.com.alura.screenmatch.services.CalcTemp;
+import br.com.alura.screenmatch.services.FilterRecommendation;
 
 public class ScreenMatch {
 
     public static void main(String[] args) {
 
-        Film favorito = new Film();
-        favorito.setNome("The matrix");
-        favorito.setAnoDeLancamento(1999);
-        favorito.setDuracaoEmMinutos(135);
-        favorito.setIncluidoNoPlano(true);
+        Film meuFilme = new Film();
+        meuFilme.setNome("O poderoso chefão");
+        meuFilme.setAnoDeLancamento(1970);
+        meuFilme.setDuracaoEmMinutos(180);
+        System.out.println("Duração do filme: " + meuFilme.getDuracaoEmMinutos());
 
-        Film outro = new Film();
-        outro.setNome("John Wick");
-        outro.setAnoDeLancamento(2014);
-        outro.setDuracaoEmMinutos(101);
-        outro.setIncluidoNoPlano(true);
+        meuFilme.exibeFichaTecnica();
+        meuFilme.avalia(8);
+        meuFilme.avalia(5);
+        meuFilme.avalia(10);
+        System.out.println("Total de avaliações: " + meuFilme.getTotalDeAvaliacoes());
+        System.out.println(meuFilme.pegaMedia());
+        //meuFilme.somaDasAvaliacoes = 10;
+        //meuFilme.totalDeAvaliacoes = 1;
+        //System.out.println(meuFilme.pegaMedia());
 
-        Series serie = new Series();
-        serie.setNome("La Casa de Papel");
-        serie.setAnoDeLancamento(2017);
-        serie.setIncluidoNoPlano(true);
-        serie.setAtiva(true);
-        serie.setTemporadas(5);
-        serie.setEpisodeosPorTemporada(10);
-        serie.setMinutosPorEpisodeo(45);
+        Series lost = new Series();
+        lost.setNome("Lost");
+        lost.setAnoDeLancamento(2000);
+        lost.exibeFichaTecnica();
+        lost.setTemporadas(10);
+        lost.setEpisodeosPorTemporada(10);
+        lost.setMinutosPorEpisodeo(50);
+        System.out.println("Duração para maratonar Lost: " + lost.getDuracaoEmMinutos());
 
-        CalcTemp calc = new CalcTemp();
-        calc.inclui(favorito);
-        calc.inclui(outro);
-        calc.inclui(serie);
+        Film outroFilme = new Film();
+        outroFilme.setNome("Avatar");
+        outroFilme.setAnoDeLancamento(2023);
+        outroFilme.setDuracaoEmMinutos(200);
 
-        System.out.println("Tempo total: " + calc.getTempoTotal());
+        CalcTemp calculadora = new CalcTemp();
+        calculadora.inclui(meuFilme);
+        calculadora.inclui(outroFilme);
+        calculadora.inclui(lost);
+        System.out.println(calculadora.getTempoTotal());
+
+        FilterRecommendation filtro = new FilterRecommendation();
+        filtro.filter(meuFilme);
+
+        Episode episodio = new Episode();
+        episodio.setNumero(1);
+        episodio.setSerie(lost);
+        episodio.setTotalVisualizacoes(300);
+        filtro.filter(episodio);
     }
 }
