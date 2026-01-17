@@ -6,6 +6,8 @@ import br.com.alura.screenmatch.model.Series;
 import br.com.alura.screenmatch.services.CalcTemp;
 import br.com.alura.screenmatch.services.FilterRecommendation;
 
+import java.util.ArrayList;
+
 public class ScreenMatch {
 
     public static void main(String[] args) {
@@ -54,5 +56,13 @@ public class ScreenMatch {
         episodio.setSerie(lost);
         episodio.setTotalVisualizacoes(300);
         filtro.filter(episodio);
+
+        ArrayList<Film> filmsList = new ArrayList<>();
+        filmsList.add(meuFilme);
+        filmsList.add(outroFilme);
+
+        System.out.println("Tamanho da lista: " +filmsList.size());
+        System.out.println("Primeiro Filme: " +filmsList.getFirst());
+        System.out.println(filmsList);
     }
 }
