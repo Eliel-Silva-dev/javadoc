@@ -12,9 +12,7 @@ public class ScreenMatch {
 
     public static void main(String[] args) {
 
-        Film meuFilme = new Film();
-        meuFilme.setNome("O poderoso chefão");
-        meuFilme.setAnoDeLancamento(1970);
+        Film meuFilme = new Film("O poderoso chefão", 1970);
         meuFilme.setDuracaoEmMinutos(180);
         System.out.println("Duração do filme: " + meuFilme.getDuracaoEmMinutos());
 
@@ -24,22 +22,15 @@ public class ScreenMatch {
         meuFilme.avalia(10);
         System.out.println("Total de avaliações: " + meuFilme.getTotalDeAvaliacoes());
         System.out.println(meuFilme.pegaMedia());
-        //meuFilme.somaDasAvaliacoes = 10;
-        //meuFilme.totalDeAvaliacoes = 1;
-        //System.out.println(meuFilme.pegaMedia());
 
-        Series lost = new Series();
-        lost.setNome("Lost");
-        lost.setAnoDeLancamento(2000);
+        Series lost = new Series("Lost", 2000);
         lost.exibeFichaTecnica();
         lost.setTemporadas(10);
         lost.setEpisodeosPorTemporada(10);
         lost.setMinutosPorEpisodeo(50);
         System.out.println("Duração para maratonar Lost: " + lost.getDuracaoEmMinutos());
 
-        Film outroFilme = new Film();
-        outroFilme.setNome("Avatar");
-        outroFilme.setAnoDeLancamento(2023);
+        Film outroFilme = new Film("Avatar", 2023);
         outroFilme.setDuracaoEmMinutos(200);
 
         CalcTemp calculadora = new CalcTemp();
