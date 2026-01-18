@@ -17,7 +17,7 @@ public class CreditCard {
     }
 
     public boolean enterPurchase(Purchase purchase) {
-        if(this.limit > purchase.getPrice()) {
+        if(this.balance >= purchase.getPrice()) {
             this.balance -= purchase.getPrice();
             this.purchases.add(purchase);
             return true;
