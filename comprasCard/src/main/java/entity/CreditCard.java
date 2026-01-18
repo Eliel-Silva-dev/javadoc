@@ -1,10 +1,12 @@
 package entity;
 
+import service.Purchase;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreditCard {
-    private double limit;
+    private final double limit;
     private double balance;
     private List<Purchase> purchases;
 
@@ -14,8 +16,13 @@ public class CreditCard {
         this.purchases = new ArrayList<>();
     }
 
-    public boolean lancaCampo(Purchase purchase) {
-
+    public boolean enterPurchase(Purchase purchase) {
+        if(this.limit > purchase.getPrice()) {
+            this.balance -= purchase.getPrice();
+            this.purchases.add(purchase);
+            return true;
+        }
+        return false;
     }
     public double getLimit() {
         return limit;
@@ -25,7 +32,7 @@ public class CreditCard {
         return balance;
     }
 
-    public List<Purchase> getCompras() {
-        return compras;
+    public List<Purchase> getPurchases() {
+        return purchases;
     }
 }
