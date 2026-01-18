@@ -1,29 +1,29 @@
 package service;
 
 public class Purchase implements Comparable<Purchase> {
-    private String descricao;
-    private double valor;
+    private String describe;
+    private double price;
 
-    public Purchase(String descricao, double valor) {
-        this.descricao = descricao;
-        this.valor = valor;
+    public Purchase(String describe, double valor) {
+        this.describe = describe;
+        this.price = valor;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescribe() {
+        return describe;
     }
 
-    public double getValor() {
-        return valor;
+    public double getPrice() {
+        return price;
     }
 
     @Override
     public String toString() {
-        return "Compra: descrição = " + descricao + "valor = " + valor;
+        return "Compra: descrição = " + describe + "valor = " + price;
     }
 
     @Override
     public int compareTo(Purchase oderPurchase) {
-        return Double.valueOf(this.valor).compareTo(Double.valueOf(oderPurchase.valor));
+        return Double.valueOf(this.price).compareTo(Double.valueOf(oderPurchase.price));
     }
 }
