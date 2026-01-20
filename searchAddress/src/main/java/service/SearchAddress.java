@@ -12,7 +12,7 @@ public class SearchAddress {
 
     public Address searchCep(String cep) {
 
-        URI uriLocation = URI.create("https://viacep.com.br/" + cep + "/json/");
+        URI uriLocation = URI.create("https://viacep.com.br/ws/" + cep + "/json/");
 
         HttpRequest request = HttpRequest.newBuilder().uri(uriLocation).build();
 
