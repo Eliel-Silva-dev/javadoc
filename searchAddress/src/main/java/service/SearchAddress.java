@@ -1,7 +1,7 @@
 package service;
 
 import com.google.gson.Gson;
-import model.Adress;
+import model.Address;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -10,7 +10,7 @@ import java.net.http.HttpResponse;
 
 public class SearchAddress {
 
-    public Adress searchCep(String cep) {
+    public Address searchCep(String cep) {
 
         URI uriLocation = URI.create("https://viacep.com.br/" + cep + "/json/");
 
@@ -20,7 +20,7 @@ public class SearchAddress {
             HttpResponse<String> response = HttpClient.newHttpClient()
                     .send(request, HttpResponse.BodyHandlers.ofString());
 
-            return new Gson().fromJson(response.body(), Adress.class);
+            return new Gson().fromJson(response.body(), Address.class);
         } catch (Exception e) {
             throw new RuntimeException("Não consegui obter o endereço a partir desse CEP.");
         }
