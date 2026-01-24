@@ -22,7 +22,7 @@ public class Episode {
         }
 
         try {
-            this.realiseDate = LocalDate.parse(dataEpisode.ReleaseDate());
+            this.realiseDate = LocalDate.parse(dataEpisode.releaseDate());
         } catch (DateTimeParseException ex) {
             this.realiseDate = null;
         }
