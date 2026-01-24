@@ -13,7 +13,27 @@ public class Principal {
     private String URL_BASE = "https://parallelum.com.br/fipe/api/v1/";
 
     public void showMenu () {
-        
+        var menu = """
+                *** OPÇÔES ***
+                Carro
+                Moto
+                Caminhão
+                
+                Digite uma das opções para consulta:
+                """;
 
+        System.out.println(menu);
+        var opcao = scan.nextLine();
+        String address;
+
+        if (opcao.toLowerCase().contains("carr")) {
+            address = URL_BASE + "carros/marcas";
+        } else if (opcao.toLowerCase().contains("mot")) {
+            address = URL_BASE + "motos/marcas";
+        } else {
+            address = URL_BASE + "caminhoes/marcas";
+        }
+
+        
     }
 }
