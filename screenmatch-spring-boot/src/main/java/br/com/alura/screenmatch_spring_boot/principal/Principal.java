@@ -63,19 +63,19 @@ public class Principal {
                         .map(d -> new Episode(t.number(), d)))
                 .collect(Collectors.toList());
 
-        episodes.forEach(System.out::println);
-
-        System.out.println("Pesquise o episódeo pelo titulo: ");
-        var trechoTitle = scan.nextLine();
-        Optional<Episode> episodeBuscado = episodes.stream()
-                .filter(e -> e.getTitle().toUpperCase().contains(trechoTitle.toUpperCase()))
-                .findFirst();
-        if (episodeBuscado.isPresent()) {
-            System.out.println("Episódeo encontrado: ");
-            System.out.println("temporada: " + episodeBuscado.get().getNumberSeason());
-        } else {
-            System.out.println("Episódeo não encontrado");
-        }
+//        episodes.forEach(System.out::println);
+//
+//        System.out.println("Pesquise o episódeo pelo titulo: ");
+//        var trechoTitle = scan.nextLine();
+//        Optional<Episode> episodeBuscado = episodes.stream()
+//                .filter(e -> e.getTitle().toUpperCase().contains(trechoTitle.toUpperCase()))
+//                .findFirst();
+//        if (episodeBuscado.isPresent()) {
+//            System.out.println("Episódeo encontrado: ");
+//            System.out.println("temporada: " + episodeBuscado.get().getNumberSeason());
+//        } else {
+//            System.out.println("Episódeo não encontrado");
+//        }
 
 //        System.out.println("Apartir de qual ano você gostaria de ver os episódeos? ");
 //        var year = scan.nextInt();
@@ -91,5 +91,11 @@ public class Principal {
 //                        "Temporada: " + e.getNumberSeason() + " Episódeo: " + e.getTitle()
 //                                + " Data de lançamento: " + e.getRealiseDate().format(formatter)
 //                ));
+
+        Map<Integer, Double> evaluationBySeason = episodes.stream()
+                .filter(e -> e.getEvaluation() > 0.0)
+                .collect(Collectors.groupingBy(Episode::getNumberSeason,
+                        Collectors.averagingDouble(Episode::getEvaluation)));
+        System.out.println(evaluationBySeason);
     }
 }
