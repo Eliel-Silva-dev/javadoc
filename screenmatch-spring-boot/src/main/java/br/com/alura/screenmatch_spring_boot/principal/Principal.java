@@ -97,5 +97,10 @@ public class Principal {
                 .collect(Collectors.groupingBy(Episode::getNumberSeason,
                         Collectors.averagingDouble(Episode::getEvaluation)));
         System.out.println(evaluationBySeason);
+
+        DoubleSummaryStatistics est = episodes.stream()
+                .filter(e -> e.getEvaluation() > 0.0)
+                .collect(Collectors.summarizingDouble(Episode::getEvaluation));
+        System.out.println(est);
     }
 }
