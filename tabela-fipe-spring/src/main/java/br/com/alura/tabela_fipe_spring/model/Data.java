@@ -1,4 +1,10 @@
 package br.com.alura.tabela_fipe_spring.model;
 
-public record Data(String code, String name) {
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record Data(
+        @JsonAlias("codigo") String code,
+        @JsonAlias("nome") String name) {
 }
