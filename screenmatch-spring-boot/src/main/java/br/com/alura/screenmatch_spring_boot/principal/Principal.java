@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Principal {
+
     private Scanner scan = new Scanner(System.in);
     private ConsumoDeApi consumoApi = new ConsumoDeApi();
     private ConverteDados converter = new ConverteDados();
@@ -18,19 +19,57 @@ public class Principal {
     private final String API_KEY = "&apikey=49749daf";
 
     public void showMenu() {
-        System.out.println("Digite o nome da série para busca");
-        var serieName = scan.nextLine();
-        var json = consumoApi.obtemDados(ENDERECO + serieName.replace(" ", "+") + API_KEY);
-        DadosSerie data = converter.obterDados(json, DadosSerie.class);
-        System.out.println(data);
+        var menu = """
+                1 - Buscar séries
+                2 - Buscar episódeos
+                
+                0 - Sair
+                """;
 
+        System.out.println(menu);
+        var opcao = scan.nextInt();
+        scan.nextLine();
+
+        switch (opcao) {
+            case 1:
+                buscarSerieWeb();
+                break;
+            case 2:
+                buscarEpisodioPorSerie();
+                break;
+            case 0:
+                System.out.println("Saindo...");
+                break;
+            default:
+                System.out.println("Opção inválida");
+        }
+
+    }
+
+    private void buscarSerieWeb() {
+        DadosSerie dataSerie = getDataSerie();
+        System.out.println(dataSerie);
+    }
+
+    private DadosSerie getDataSerie() {
+        System.out.println("Digite o nome da série para busca ");
+        var nameSeason = scan.nextLine();
+        var json = consumoApi.obtemDados(ENDERECO + nameSeason.replace(" ", "+") + API_KEY);
+        DadosSerie data = converter.obterDados(json, DadosSerie.class);
+
+        return data;
+    }
+
+    private void buscarEpisodioPorSerie() {
+        DadosSerie dadosSerie = getDataSerie();
         List<DataSeason> temporadas = new ArrayList<>();
 
-        for (int i = 1; i <= data.totalTemporadas(); i++) {
-            json = consumoApi.obtemDados(ENDERECO + serieName.replace(" ", "+") + "&season=" + i + API_KEY);
+        for (int i = 1; i <= dadosSerie.totalTemporadas(); i++) {
+            var json = consumoApi.obtemDados(ENDERECO + dadosSerie.titulo().replace(" ", "+") + "&season=" + i + API_KEY);
             DataSeason dataSeason = converter.obterDados(json, DataSeason.class);
             temporadas.add(dataSeason);
         }
-        //temporadas.forEach(System.out::println);
+        temporadas.forEach(System.out::println);
+
     }
 }
