@@ -1,3 +1,6 @@
 spring:
   application:
     name: screenmatch-spring-boot
+openai:
+  api:
+    key: ${OPENAI_API_KEY}
