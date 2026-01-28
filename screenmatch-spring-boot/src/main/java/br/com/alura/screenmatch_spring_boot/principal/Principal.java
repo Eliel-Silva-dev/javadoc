@@ -3,6 +3,7 @@ package br.com.alura.screenmatch_spring_boot.principal;
 import br.com.alura.screenmatch_spring_boot.model.DadosSerie;
 import br.com.alura.screenmatch_spring_boot.model.DataSeason;
 import br.com.alura.screenmatch_spring_boot.model.Serie;
+import br.com.alura.screenmatch_spring_boot.repository.SerieRepository;
 import br.com.alura.screenmatch_spring_boot.service.ConsumoDeApi;
 import br.com.alura.screenmatch_spring_boot.service.ConverteDados;
 
@@ -22,6 +23,12 @@ public class Principal {
     private final String API_KEY = "&apikey=49749daf";
 
     private List<DadosSerie> dataSeries = new ArrayList<>();
+
+    SerieRepository repository;
+
+    public Principal(SerieRepository repository) {
+        this.repository = repository;
+    }
 
     public void showMenu() {
         var opcao = -1;
@@ -76,6 +83,9 @@ public class Principal {
         DadosSerie dataSerie = getDataSerie();
         dataSeries.add(dataSerie);
         System.out.println(dataSerie);
+
+        Serie serie = new Serie(dataSerie);
+        repository.save(serie);
     }
 
     private DadosSerie getDataSerie() {
