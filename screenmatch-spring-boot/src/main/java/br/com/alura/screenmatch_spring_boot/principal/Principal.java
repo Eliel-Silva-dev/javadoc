@@ -2,15 +2,13 @@ package br.com.alura.screenmatch_spring_boot.principal;
 
 import br.com.alura.screenmatch_spring_boot.model.DadosSerie;
 import br.com.alura.screenmatch_spring_boot.model.DataSeason;
+import br.com.alura.screenmatch_spring_boot.model.Episode;
 import br.com.alura.screenmatch_spring_boot.model.Serie;
 import br.com.alura.screenmatch_spring_boot.repository.SerieRepository;
 import br.com.alura.screenmatch_spring_boot.service.ConsumoDeApi;
 import br.com.alura.screenmatch_spring_boot.service.ConverteDados;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {
@@ -22,9 +20,9 @@ public class Principal {
     private final String ENDERECO = "https://www.omdbapi.com/?t=";
     private final String API_KEY = "&apikey=49749daf";
 
-    private List<DadosSerie> dataSeries = new ArrayList<>();
-
     SerieRepository repository;
+
+    List<Serie> series = new ArrayList<>();
 
     public Principal(SerieRepository repository) {
         this.repository = repository;
@@ -67,11 +65,7 @@ public class Principal {
     }
 
     private void listarSeriesBuscadas() {
-        List<Serie> series = repository.findAll();
-
-//        series = dataSeries.stream()
-//                .map(d -> new Serie(d))
-//                .collect(Collectors.toList());
+        series = repository.findAll();
         series.stream()
                 .sorted(Comparator.comparing(Serie::getGenero))
                 .forEach(System.out::println);
@@ -80,9 +74,6 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dataSerie = getDataSerie();
-        dataSeries.add(dataSerie);
-        System.out.println(dataSerie);
-
         Serie serie = new Serie(dataSerie);
         repository.save(serie);
     }
@@ -97,16 +88,38 @@ public class Principal {
     }
 
     private void buscarEpisodioPorSerie() {
-        DadosSerie dadosSerie = getDataSerie();
-        List<DataSeason> temporadas = new ArrayList<>();
+        listarSeriesBuscadas();
+        System.out.println("Escolha uma série pelo nome");
+        var nomeSerie = scan.nextLine();
 
-        for (int i = 1; i <= dadosSerie.totalTemporadas(); i++) {
-            var json = consumoApi.obtemDados(ENDERECO + dadosSerie.titulo().replace(" ", "+") + "&season=" + i + API_KEY);
-            DataSeason dataSeason = converter.obterDados(json, DataSeason.class);
-            temporadas.add(dataSeason);
+        Optional<Serie> serie = series.stream().filter(
+                s -> s.getTitulo().toLowerCase().contains(nomeSerie.toLowerCase())
+        ).findFirst();
+
+        if (serie.isPresent()) {
+            var serieEncontrada = serie.get();
+
+            List<DataSeason> temporadas = new ArrayList<>();
+
+            for (int i = 1; i <= serieEncontrada.getTotalTemporadas(); i++) {
+                var json = consumoApi.obtemDados(ENDERECO + serieEncontrada.getTitulo().replace(" ", "+") + "&season=" + i + API_KEY);
+                DataSeason dataSeason = converter.obterDados(json, DataSeason.class);
+                temporadas.add(dataSeason);
+            }
+            temporadas.forEach(System.out::println);
+
+            List<Episode> episodios = temporadas.stream().flatMap(t -> t.episodes().stream()
+                    .map(
+                            e -> new Episode(t.number(), e)
+                    )).collect(Collectors.toList());
+
+            serieEncontrada.setEpisodes(episodios);
+
+            repository.save(serieEncontrada);
+
+        } else {
+            System.out.println("Temporada não encontrada...");
         }
-        temporadas.forEach(System.out::println);
-
     }
-    
+
 }
