@@ -13,8 +13,11 @@ public class Episode {
     private Long id;
 
     private Integer numberSeason;
+
     private String title;
+
     private Integer numberEpisode;
+
     private Double evaluation;
     private LocalDate realiseDate;
 
