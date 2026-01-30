@@ -1,9 +1,6 @@
 package br.com.alura.screenmatch_spring_boot.principal;
 
-import br.com.alura.screenmatch_spring_boot.model.DadosSerie;
-import br.com.alura.screenmatch_spring_boot.model.DataSeason;
-import br.com.alura.screenmatch_spring_boot.model.Episode;
-import br.com.alura.screenmatch_spring_boot.model.Serie;
+import br.com.alura.screenmatch_spring_boot.model.*;
 import br.com.alura.screenmatch_spring_boot.repository.SerieRepository;
 import br.com.alura.screenmatch_spring_boot.service.ConsumoDeApi;
 import br.com.alura.screenmatch_spring_boot.service.ConverteDados;
@@ -39,6 +36,8 @@ public class Principal {
                     4 - Buscar série por titulo
                     5 - buscar série por ator
                     6 - Buscar top 5 séries
+                    7 - Buscar séries por categoria
+                    8 - Filtrar séries
                     
                     0 - Sair
                     """;
@@ -65,6 +64,9 @@ public class Principal {
                     break;
                 case 6:
                     buscarTop5Series();
+                    break;
+                case 7:
+                    buscarSeriesPorCategoria();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -165,5 +167,17 @@ public class Principal {
         List<Serie> serieTop = repository.findTop5ByOrderByAvaliacaoDesc();
         serieTop.forEach(s ->
                 System.out.println(s.getTitulo() + ", Avaliação: " + s.getAvaliacao()));
+    }
+
+    private void buscarSeriesPorCategoria() {
+        System.out.println("Deseja buscar séries de que categoria/gênero? ");
+        var nomeGenero = scan.nextLine();
+
+        Categoria categoria = Categoria.fromPortugues(nomeGenero);
+
+        List<Serie> seriesPorCategoria = repository.findByGenero(categoria);
+
+        System.out.println("Séries da categoria " + nomeGenero);
+        seriesPorCategoria.forEach(System.out::println);
     }
 }
