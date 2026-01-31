@@ -1,0 +1,13 @@
+package br.com.alura.screen_music;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class ScreenMusicApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
