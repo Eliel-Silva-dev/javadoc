@@ -4,8 +4,7 @@ package br.com.alura.screen_music.model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-
-import br.com.alura.screen_music.model.Music;
+import java.util.List;
 
 @Entity
 @Table(name = "artistas")
