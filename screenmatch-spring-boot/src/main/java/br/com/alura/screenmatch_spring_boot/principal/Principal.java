@@ -192,7 +192,7 @@ public class Principal {
         var avaliacao = scan.nextDouble();
         scan.nextLine();
 
-        List<Serie> filtroSeries = repository.findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(totalTemporadas, avaliacao);
+        List<Serie> filtroSeries = repository.seriesPorTemporadaEAvaliacao(totalTemporadas, avaliacao);
 
         System.out.println("*** Séries filtradas ***");
         filtroSeries.forEach(s ->
