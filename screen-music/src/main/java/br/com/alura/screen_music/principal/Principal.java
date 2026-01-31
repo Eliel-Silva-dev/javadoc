@@ -8,7 +8,7 @@ public class Principal {
     public void showMenu() {
         var opcao = -1;
 
-        while (opcao != 0) {
+        while (opcao != 9) {
             var menu = """
                      *** Screen Music ***
                     
@@ -24,11 +24,21 @@ public class Principal {
             opcao = scan.nextInt();
             scan.nextLine();
 
-//            switch (opcao) {
-//
-//            }
+            switch (opcao) {
+                case 1:
+                    cadastrarArtista();
+                    break;
+                case 9:
+                    System.out.println("Saindo do programa...");
+                default:
+                    System.out.println("Opção invalida, tente novamente...");
+            }
 
         }
+    }
+
+    private void cadastrarArtista() {
+        System.out.println("teste....");
     }
 
 
