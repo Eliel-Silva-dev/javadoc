@@ -4,6 +4,7 @@ import br.com.alura.screen_music.model.Artist;
 import br.com.alura.screen_music.model.ArtistType;
 import br.com.alura.screen_music.model.Music;
 import br.com.alura.screen_music.repository.ArtistRepository;
+import br.com.alura.screen_music.service.ConsultaGemini;
 
 import java.util.List;
 import java.util.Optional;
@@ -54,6 +55,7 @@ public class Principal {
                     break;
                 case 9:
                     System.out.println("Saindo do programa...");
+                    break;
                 default:
                     System.out.println("Opção invalida, tente novamente...");
             }
@@ -121,7 +123,7 @@ public class Principal {
     private void pesquisarDadosDoArtista() {
         System.out.println("Pesquisar dados sobre qual artista? ");
         var nome = scan.nextLine();
-        //var resposta = ConsultaChatGPT.obterInformacao(nome);
-        //System.out.println(resposta.trim());
+        var resposta = ConsultaGemini.obterInformacao(nome);
+        System.out.println(resposta.trim());
     }
 }
