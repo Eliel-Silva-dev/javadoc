@@ -20,7 +20,7 @@ public class Artist {
     @Enumerated(EnumType.STRING)
     private ArtistType type;
 
-    @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Music> musics = new ArrayList<>();
 
     public Artist() {
