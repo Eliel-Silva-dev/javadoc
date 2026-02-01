@@ -46,6 +46,12 @@ public class Principal {
                 case 3:
                     listarMusicas();
                     break;
+                case 4:
+                    buscarMusicasPorArtista();
+                    break;
+                case 5:
+                    pesquisarDadosDoArtista();
+                    break;
                 case 9:
                     System.out.println("Saindo do programa...");
                 default:
@@ -103,5 +109,19 @@ public class Principal {
         List<Artist> artist = repository.findAll();
 
         artist.forEach(a -> a.getMusics().forEach(System.out::println));
+    }
+
+    private void buscarMusicasPorArtista() {
+        System.out.println("Buscar músicas de que artista? ");
+        var name = scan.nextLine();
+        List<Music> musicas = repository.searchMusicByArtist(name);
+        musicas.forEach(System.out::println);
+    }
+
+    private void pesquisarDadosDoArtista() {
+        System.out.println("Pesquisar dados sobre qual artista? ");
+        var nome = scan.nextLine();
+        //var resposta = ConsultaChatGPT.obterInformacao(nome);
+        //System.out.println(resposta.trim());
     }
 }
