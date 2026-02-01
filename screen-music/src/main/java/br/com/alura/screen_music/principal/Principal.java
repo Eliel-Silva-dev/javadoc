@@ -72,4 +72,26 @@ public class Principal {
             cadastrarNovo = scan.nextLine();
         }
     }
+
+    private void cadastrarMusicas() {
+        System.out.println("Cadastrar música de que artista? ");
+        var name = scan.nextLine();
+
+        Optional<Artist> artist = repository.findByNameContainingIgnoreCase(name);
+
+        if (artist.isPresent()) {
+            System.out.println("Informe o título da música: ");
+            var nomeMusica = scan.nextLine();
+
+            Music music = new Music(nomeMusica);
+
+            music.setArtist(artist.get());
+
+            artist.get().getMusics().add(music);
+
+            repository.save(artist.get());
+        } else {
+            System.out.println("Artista não encontrada...");
+        }
+    }
 }
