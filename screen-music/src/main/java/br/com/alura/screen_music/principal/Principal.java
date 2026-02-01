@@ -5,6 +5,7 @@ import br.com.alura.screen_music.model.ArtistType;
 import br.com.alura.screen_music.model.Music;
 import br.com.alura.screen_music.repository.ArtistRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -41,6 +42,9 @@ public class Principal {
                     break;
                 case 2:
                     cadastrarMusicas();
+                    break;
+                case 3:
+                    listarMusicas();
                     break;
                 case 9:
                     System.out.println("Saindo do programa...");
@@ -93,5 +97,11 @@ public class Principal {
         } else {
             System.out.println("Artista não encontrada...");
         }
+    }
+
+    private void listarMusicas() {
+        List<Artist> artist = repository.findAll();
+
+        artist.forEach(a -> a.getMusics().forEach(System.out::println));
     }
 }
