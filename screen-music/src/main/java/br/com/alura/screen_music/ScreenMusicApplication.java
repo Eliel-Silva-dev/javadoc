@@ -1,6 +1,8 @@
 package br.com.alura.screen_music;
 
 import br.com.alura.screen_music.principal.Principal;
+import br.com.alura.screen_music.repository.ArtistRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,13 +10,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ScreenMusicApplication implements CommandLineRunner {
 
+	@Autowired
+	private ArtistRepository repository;
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(ScreenMusicApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		Principal principal = new Principal();
+		Principal principal = new Principal(repository);
 		principal.showMenu();
 	}
 }

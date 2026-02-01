@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface Repository extends JpaRepository<Artist, Long> {
+public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
     Optional<Artist> findByNameContainingIgnoreCase(String nome);
 
