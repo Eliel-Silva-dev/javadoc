@@ -36,8 +36,18 @@ public class Serie {
     public Serie(DadosSerie dadosSerie) {
         this.titulo = dadosSerie.titulo();
         this.totalTemporadas = dadosSerie.totalTemporadas();
-        this.avaliacao = OptionalDouble.of(Double.valueOf(dadosSerie.avaliacao())).orElse(0);
-        this.genero = Categoria.fromString(dadosSerie.genero().split(",")[0].trim());
+        try {
+            this.avaliacao = OptionalDouble.of(Double.valueOf(dadosSerie.avaliacao())).orElse(0);
+        } catch (Exception ex) {
+            System.out.println("Não fopi possivel obter a avaliação");
+            this.avaliacao = 0.0;
+        }
+        try {
+            this.genero = Categoria.fromString(dadosSerie.genero().split(",")[0].trim());
+        } catch (Exception ex) {
+            System.out.println("Não foi possivel identificar o genero" + ex.getMessage());
+            this.genero = Categoria.fromString("Sem Categoria");
+        }
         this.atores = dadosSerie.atores();
         this.poster = dadosSerie.poster();
         try {
