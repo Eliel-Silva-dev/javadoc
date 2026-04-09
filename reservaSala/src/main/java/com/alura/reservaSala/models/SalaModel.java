@@ -1,7 +1,7 @@
 package com.alura.reservaSala.models;
 
 
-public class salaModel {
+public class SalaModel {
 
     private Integer capacidade;
     private Long id;
