@@ -89,7 +89,7 @@ public class GeraCpfCnpj {
         return retorno;
     }
 
-    public boolean isCPF(String CPF) {
+    public static boolean isCPF(String CPF) {
 
         CPF = removeCaracteresEspeciais(CPF);
 
@@ -149,7 +149,7 @@ public class GeraCpfCnpj {
         }
     }
 
-    public boolean isCNPJ(String CNPJ) {
+    public static boolean isCNPJ(String CNPJ) {
 
         CNPJ = removeCaracteresEspeciais(CNPJ);
 
@@ -217,7 +217,7 @@ public class GeraCpfCnpj {
         }
     }
 
-    private String removeCaracteresEspeciais( String doc) {
+    private static String removeCaracteresEspeciais( String doc) {
 
         if (doc.contains(".")){
             doc = doc.replace(".", "");

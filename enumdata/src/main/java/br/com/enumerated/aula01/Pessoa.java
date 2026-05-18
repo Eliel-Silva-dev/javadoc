@@ -29,7 +29,11 @@ public class Pessoa {
     }
 
     public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
+        if(tipoDocumento.verificaNumero(numeroDocumento)) {
+            this.numeroDocumento = numeroDocumento;
+        } else {
+            throw new IllegalArgumentException("Invalid number");
+        }
     }
 
     @Override
