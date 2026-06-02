@@ -55,4 +55,48 @@ public class GeradorCpfCnpj {
         // Se os numeros informados forem iguais aos calculado entao o cpf e valido
         return (dv1Original == dv1Calculado && dv2Original == dv2Calculado);
     }
+
+    // Metodo para gerar um cpf aleatório válido
+
+    public static String gerarCPF() {
+        Random random = new Random();
+        int[] digitos = new int[11];
+
+        // gera os 9 primeiros digitos
+        for (int i = 0; i < 9; i++) {
+            digitos[i] = random.nextInt();
+        }
+
+        // Calculo do primeiro dv
+        int soma = 0;
+        int peso = 10;
+
+        for (int i = 0; i < 9; i++) {
+            soma += digitos[i] * peso;
+            peso--;
+        }
+
+        int resto = soma % 11;
+        digitos[9] = (resto < 2) ? 0 : 11 - resto;
+
+        // Calculo do segundo dv
+        soma = 0;
+        peso = 11;
+
+        for (int i = 0; i < 10; i++) {
+            soma += digitos[i] * peso;
+            peso--;
+        }
+
+        resto = soma % 11;
+        digitos[10] = (resto < 2) ? 0 : 11 - resto;
+
+        //junta tudo em uma unica String
+        StringBuilder cpfGerado = new StringBuilder();
+        for (int digito : digitos) {
+            cpfGerado.append(digito);
+        }
+
+        return cpfGerado.toString();
+    }
 }
