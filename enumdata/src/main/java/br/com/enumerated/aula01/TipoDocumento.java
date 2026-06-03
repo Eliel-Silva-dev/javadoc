@@ -21,7 +21,7 @@ public enum TipoDocumento {
 
         @Override
         public boolean verificaNumero(String numero) {
-            return GeraCpfCnpj.isCNPJ(numero);
+            return GeradorCpfCnpj.validarCNPJ(numero);
         }
 
     };

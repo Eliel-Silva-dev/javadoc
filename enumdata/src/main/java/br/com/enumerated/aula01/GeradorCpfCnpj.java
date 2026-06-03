@@ -5,9 +5,9 @@ import java.util.Random;
 public class GeradorCpfCnpj {
 
     // metodo validador de cpf
-    public static boolean ValidarCpf(String cpf) {
+    public static boolean validarCpf(String cpf) {
         //remove todos os caracteres não númericos
-        cpf = cpf.replaceAll("\\D", "");
+        cpf = clearDocument(cpf);
 
         //verifica quantidade minima de digitos
         if (cpf.length() != 11) {
@@ -57,7 +57,6 @@ public class GeradorCpfCnpj {
     }
 
     // Metodo para gerar um cpf aleatório válido
-
     public static String gerarCPF() {
         Random random = new Random();
         int[] digitos = new int[11];
@@ -98,5 +97,58 @@ public class GeradorCpfCnpj {
         }
 
         return cpfGerado.toString();
+    }
+
+    // metodo validador de cnpj
+    public static boolean validarCNPJ (String cnpj) {
+        // limpa documento
+        cnpj = clearDocument(cnpj);
+
+        // verifica numero de digitos
+        if(cnpj.length() != 14) {
+            return (false);
+        };
+
+        // bloqueio de cnpjs compostos de numero identicos
+        if(cnpj.matches("(\\d)\\1{13}")) {
+            return (false);
+        }
+
+        // PESOS FIXOS DO CNPJ
+        int[] pesos1 = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+        int[] pesos2 = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+
+        // calcula o primeiro dv
+        int soma = 0;
+        for (int i = 0; i < 12; i++) {
+            // converter char em int
+            int num = Character.getNumericValue(cnpj.charAt(i));
+            soma += num * pesos1[i];
+        }
+
+        int resto = soma % 11;
+        int dv1Calculado = (resto < 2) ? 0 : 11 - resto;
+
+        // calcula o primeiro dv
+        soma = 0;
+        for (int i = 0; i < 13; i++) {
+            // converter char em int
+            int num = Character.getNumericValue(cnpj.charAt(i));
+            soma += num * pesos2[i];
+        }
+
+        resto = soma % 11;
+        int dv2Calculado = (resto < 2) ? 0 : 11 - resto;
+
+        // validacao final
+        int dv1Original = Character.getNumericValue(cnpj.charAt(12));
+        int dv2Original = Character.getNumericValue(cnpj.charAt(13));
+
+        // se os numeros forem iguais o cnpj é válido
+        return (dv1Calculado == dv1Original && dv2Calculado == dv2Original);
+    }
+
+    private static String clearDocument(String document) {
+        return document = document.replaceAll("\\D","");
     }
 }
