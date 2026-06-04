@@ -15,7 +15,7 @@ public class TesteDocumento {
 
         Pessoa pj = new Pessoa();
         pj.setTipoDocumento(Enum.valueOf(TipoDocumento.class, "CNPJ"));
-        pj.setNumeroDocumento("88.546.385/0001-38");
+        pj.setNumeroDocumento(pj.getTipoDocumento().geraNumeroTeste());
         System.out.println(pj);
     }
 }

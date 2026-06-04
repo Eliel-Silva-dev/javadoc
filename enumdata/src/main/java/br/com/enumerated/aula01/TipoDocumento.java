@@ -16,7 +16,7 @@ public enum TipoDocumento {
     }, CNPJ {
         @Override
         public String geraNumeroTeste() {
-            return GeraCpfCnpj.cnpj();
+            return GeradorCpfCnpj.geraCNPJ();
         }
 
         @Override

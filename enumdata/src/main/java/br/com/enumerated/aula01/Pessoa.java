@@ -32,6 +32,7 @@ public class Pessoa {
         if(tipoDocumento.verificaNumero(numeroDocumento)) {
             this.numeroDocumento = numeroDocumento;
         } else {
+            System.out.println(numeroDocumento);
             throw new IllegalArgumentException("Invalid number");
         }
     }

@@ -148,6 +148,48 @@ public class GeradorCpfCnpj {
         return (dv1Calculado == dv1Original && dv2Calculado == dv2Original);
     }
 
+    // metodo gerador de CNPJ
+    public static String geraCNPJ() {
+        Random random = new Random();
+        int[] digits = new int[14];
+
+        // gera os 12 digitos totalmente aleatorio (0 a 9)
+        for(int i = 0; i < 12; i++) {
+            digits[i] = random.nextInt(10);
+        }
+
+        // PESOS FIXOS DO CNPJ
+        int[] pesos1 = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+        int[] pesos2 = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+
+        // calcula o primeiro dv usando os digitos criados
+        int soma = 0;
+
+        for(int i = 0; i < 12; i++){
+            soma += digits[i] * pesos1[i];
+        }
+
+        int resto = soma % 11;
+        digits[12] = (resto < 2) ? 0 : 11 - resto;
+
+        // calcula o segundo dv usando os digitos criados
+        soma = 0;
+
+        for(int i = 0; i < 13; i++){
+            soma += digits[i] * pesos2[i];
+        }
+
+        resto = soma % 11;
+        digits[13] = (resto < 2) ? 0 : 11 - resto;
+
+        // montando o documento com as pontuacoes
+        return ("" + digits[0] + digits[1] +  "." +
+                digits[2] + digits[3] + digits[4] + "." +
+                digits[5] + digits[6] + digits[7] + "/" +
+                digits[8] + digits[9] + digits[10] + digits[11] + "-" +
+                digits[12] + digits[13]);
+    }
+
     private static String clearDocument(String document) {
         return document = document.replaceAll("\\D","");
     }
