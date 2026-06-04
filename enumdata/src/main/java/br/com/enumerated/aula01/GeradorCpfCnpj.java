@@ -158,36 +158,30 @@ public class GeradorCpfCnpj {
             digits[i] = random.nextInt(10);
         }
 
-        // PESOS FIXOS DO CNPJ
-        int[] pesos1 = {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
-        int[] pesos2 = {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2};
+        // gera os dv 
+        digits[12] = calcularDigitoCNPJ(digits, new int[] {5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2});
+        digits[13] = calcularDigitoCNPJ(digits, new int[] {6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2});
 
-        // calcula o primeiro dv usando os digitos criados
+        // montar cnpj com pontuacao
+        StringBuilder cnpj = new StringBuilder();
+
+        for(int i = 0; i < 14; i++) {
+            cnpj.append(digits[i]);
+
+            if(i == 1 || i == 4) cnpj.append(".");
+            if(i == 7) cnpj.append("/");
+            if(i == 11) cnpj.append("-");
+        }
+        return cnpj.toString();
+    }
+
+    private static int calcularDigitoCNPJ(int[] digits, int[] pesos){
         int soma = 0;
-
-        for(int i = 0; i < 12; i++){
-            soma += digits[i] * pesos1[i];
+        for(int i = 0; i < pesos.length; i++){
+            soma += digits[i] * pesos[i];
         }
-
         int resto = soma % 11;
-        digits[12] = (resto < 2) ? 0 : 11 - resto;
-
-        // calcula o segundo dv usando os digitos criados
-        soma = 0;
-
-        for(int i = 0; i < 13; i++){
-            soma += digits[i] * pesos2[i];
-        }
-
-        resto = soma % 11;
-        digits[13] = (resto < 2) ? 0 : 11 - resto;
-
-        // montando o documento com as pontuacoes
-        return ("" + digits[0] + digits[1] +  "." +
-                digits[2] + digits[3] + digits[4] + "." +
-                digits[5] + digits[6] + digits[7] + "/" +
-                digits[8] + digits[9] + digits[10] + digits[11] + "-" +
-                digits[12] + digits[13]);
+        return (resto < 2) ? 0 : 11 - resto;
     }
 
     private static String clearDocument(String document) {
