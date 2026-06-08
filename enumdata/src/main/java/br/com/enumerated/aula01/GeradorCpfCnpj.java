@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class GeradorCpfCnpj {
 
+    private static boolean comPontos = true;
     // metodo validador de cpf
     public static boolean validarCpf(String cpf) {
         //remove todos os caracteres não númericos
@@ -92,10 +93,26 @@ public class GeradorCpfCnpj {
 
         //junta tudo em uma unica String
         StringBuilder cpfGerado = new StringBuilder();
+
+        /*
         for (int digito : digitos) {
             cpfGerado.append(digito);
         }
+        */
 
+        if (comPontos) {
+
+            for(int i = 0; i < 11; i++) {
+                cpfGerado.append(digitos[i]);
+
+                if(i == 2 || i == 5) cpfGerado.append(".");
+                if(i == 8) cpfGerado.append("-");
+            }
+        } else {
+            for(int i = 0; i < 11; i++) {
+                cpfGerado.append(digitos[i]);
+            }
+        }
         return cpfGerado.toString();
     }
 
@@ -165,12 +182,19 @@ public class GeradorCpfCnpj {
         // montar cnpj com pontuacao
         StringBuilder cnpj = new StringBuilder();
 
-        for(int i = 0; i < 14; i++) {
-            cnpj.append(digits[i]);
+        if (comPontos) {
 
-            if(i == 1 || i == 4) cnpj.append(".");
-            if(i == 7) cnpj.append("/");
-            if(i == 11) cnpj.append("-");
+            for(int i = 0; i < 14; i++) {
+                cnpj.append(digits[i]);
+
+                if(i == 1 || i == 4) cnpj.append(".");
+                if(i == 7) cnpj.append("/");
+                if(i == 11) cnpj.append("-");
+            }
+        } else {
+            for(int i = 0; i < 14; i++) {
+                cnpj.append(digits[i]);
+            }
         }
         return cnpj.toString();
     }
