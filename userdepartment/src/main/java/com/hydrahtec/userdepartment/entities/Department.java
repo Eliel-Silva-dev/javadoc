@@ -11,9 +11,6 @@ public class Department {
     private Long id;
     private String name;
 
-    @OneToMany
-    private User[] users;
-
     public Department() {
     }
 
