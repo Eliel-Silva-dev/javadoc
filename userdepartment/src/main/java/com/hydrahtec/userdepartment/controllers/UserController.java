@@ -38,4 +38,10 @@ public class UserController {
         User result = repository.save(user);
         return result;
     }
+
+    @PutMapping
+    public User updateUser(@RequestBody User user) {
+        User result = repository.save(user);
+        return result;
+    }
 }
