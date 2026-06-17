@@ -5,7 +5,6 @@ import com.hydrahtec.userdepartment.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.rmi.NotBoundException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -32,5 +31,11 @@ public class UserController {
         } else {
             throw new NoSuchElementException("Data not found");
         }
+    }
+
+    @PostMapping
+    public User saveUser(@RequestBody User user) {
+        User result = repository.save(user);
+        return result;
     }
 }
