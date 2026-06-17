@@ -3,12 +3,11 @@ package com.hydrahtec.userdepartment.controllers;
 import com.hydrahtec.userdepartment.entities.User;
 import com.hydrahtec.userdepartment.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.rmi.NotBoundException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -21,14 +20,17 @@ public class UserController {
     @GetMapping
     public List<User> findAll() {
         List<User> result = repository.findAll();
-
         return result;
     }
 
     @GetMapping(value = "/{id}")
-    public User findById(@RequestParam("id") Long id) {
+    public User findById(@PathVariable Long id){
         Optional<User> result = repository.findById(id);
 
-       return result.get();
+        if(result.isPresent()) {
+        return result.get();
+        } else {
+            throw new NoSuchElementException("Data not found");
+        }
     }
 }
