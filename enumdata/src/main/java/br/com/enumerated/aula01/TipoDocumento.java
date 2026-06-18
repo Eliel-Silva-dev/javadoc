@@ -5,12 +5,12 @@ public enum TipoDocumento {
     CPF {
         @Override
         public String geraNumeroTeste() {
-            return GeraCpfCnpj.cpf();
+            return GeradorCpfCnpj.gerarCPF();
         }
 
         @Override
         public boolean verificaNumero(String numero) {
-            return GeraCpfCnpj.isCPF(numero);
+            return GeradorCpfCnpj.validarCpf(numero);
         }
 
     }, CNPJ {

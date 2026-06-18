@@ -64,7 +64,7 @@ public class GeradorCpfCnpj {
 
         // gera os 9 primeiros digitos
         for (int i = 0; i < 9; i++) {
-            digitos[i] = random.nextInt();
+            digitos[i] = random.nextInt(10);
         }
 
         // Calculo do primeiro dv
@@ -93,12 +93,6 @@ public class GeradorCpfCnpj {
 
         //junta tudo em uma unica String
         StringBuilder cpfGerado = new StringBuilder();
-
-        /*
-        for (int digito : digitos) {
-            cpfGerado.append(digito);
-        }
-        */
 
         if (comPontos) {
 
