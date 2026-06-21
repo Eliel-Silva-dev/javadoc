@@ -1,13 +1,42 @@
 package com.hydrahtec.jpadoc.models;
 
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
-public class BookModel {
+@Entity
+@Table(name = "TB_BOOK")
+public class BookModel implements Serializable {
 
-    UUID id;
-    String title;
-    PublisherModel publisher;
-    Set<AuthorModel> authors;
-    ReviewModel review;
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
+
+    @Column(nullable = false, unique = true)
+    private String title;
+
+    //private PublisherModel publisher;
+    //private Set<AuthorModel> authors;
+    //private ReviewModel review;
+
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }
