@@ -7,7 +7,7 @@ public class BookModel {
 
     UUID id;
     String title;
-    Publisher publisher;
-    Set<Author> authors;
-    Review review;
+    PublisherModel publisher;
+    Set<AuthorModel> authors;
+    ReviewModel review;
 }
