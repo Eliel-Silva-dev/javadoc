@@ -19,7 +19,10 @@ public class BookModel implements Serializable {
     @Column(nullable = false, unique = true)
     private String title;
 
-    //private PublisherModel publisher;
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private PublisherModel publisher;
+
     //private Set<AuthorModel> authors;
     //private ReviewModel review;
 
