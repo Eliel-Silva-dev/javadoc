@@ -23,7 +23,12 @@ public class BookModel implements Serializable {
     @JoinColumn(name = "publisher_id")
     private PublisherModel publisher;
 
-    //private Set<AuthorModel> authors;
+    @ManyToMany
+    @JoinTable(name = "tb_bookid_authorid",
+    joinColumns = @JoinColumn)
+    private Set<AuthorModel> authors;
+
+
     //private ReviewModel review;
 
 

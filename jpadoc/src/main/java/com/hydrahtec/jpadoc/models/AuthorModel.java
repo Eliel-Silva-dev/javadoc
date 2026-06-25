@@ -1,5 +1,6 @@
 package com.hydrahtec.jpadoc.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -18,7 +19,9 @@ public class AuthorModel implements Serializable {
     @Column(nullable = false, unique = true)
     String name;
 
-    //Set<BookModel> books;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "authors", fetch = FetchType.LAZY)
+    Set<BookModel> books;
 
 
     public UUID getId() {
