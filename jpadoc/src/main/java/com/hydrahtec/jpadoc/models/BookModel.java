@@ -23,9 +23,10 @@ public class BookModel implements Serializable {
     @JoinColumn(name = "publisher_id")
     private PublisherModel publisher;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tb_bookid_authorid",
-    joinColumns = @JoinColumn)
+    joinColumns = @JoinColumn(name = "book_id"),
+    inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<AuthorModel> authors;
 
 

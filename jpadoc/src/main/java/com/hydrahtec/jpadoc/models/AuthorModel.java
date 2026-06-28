@@ -14,14 +14,14 @@ public class AuthorModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    UUID id;
+    private UUID id;
 
     @Column(nullable = false, unique = true)
-    String name;
+    private String name;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "authors", fetch = FetchType.LAZY)
-    Set<BookModel> books;
+    private Set<BookModel> books;
 
 
     public UUID getId() {
