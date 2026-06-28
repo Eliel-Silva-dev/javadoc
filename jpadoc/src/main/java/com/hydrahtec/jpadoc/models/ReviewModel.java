@@ -12,12 +12,13 @@ public class ReviewModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    UUID id;
+    private UUID id;
 
     @Column(nullable = false, unique = true)
-    String comment;
+    private String comment;
 
-    //BookModel book;
+    @OneToOne
+    private BookModel book;
 
 
     public UUID getId() {
@@ -34,5 +35,13 @@ public class ReviewModel implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public BookModel getBook() {
+        return book;
+    }
+
+    public void setBook(BookModel book) {
+        this.book = book;
     }
 }

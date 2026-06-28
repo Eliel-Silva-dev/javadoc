@@ -39,4 +39,12 @@ public class AuthorModel implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Set<BookModel> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<BookModel> books) {
+        this.books = books;
+    }
 }
