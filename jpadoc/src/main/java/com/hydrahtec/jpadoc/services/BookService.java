@@ -9,6 +9,7 @@ import com.hydrahtec.jpadoc.repositories.PublisherRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +25,9 @@ public class BookService {
         this.authorRepository = authorRepository;
     }
 
+    public List<BookModel> getAllBooks() {
+        return bookRepository.findAll();
+    }
     @Transactional
     public BookModel saveBook(BookRecordDto bookRecordDto) {
         BookModel book = new BookModel();

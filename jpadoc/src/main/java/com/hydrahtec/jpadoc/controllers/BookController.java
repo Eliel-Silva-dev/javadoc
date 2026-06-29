@@ -5,10 +5,9 @@ import com.hydrahtec.jpadoc.models.BookModel;
 import com.hydrahtec.jpadoc.services.BookService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/bookstore/books")
@@ -18,6 +17,11 @@ public class BookController {
 
     public BookController(BookService bookService) {
         this.bookService = bookService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BookModel>> getAllBooks() {
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.getAllBooks());
     }
 
     @PostMapping
