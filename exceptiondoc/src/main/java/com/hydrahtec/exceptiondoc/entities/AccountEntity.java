@@ -1,5 +1,7 @@
 package com.hydrahtec.exceptiondoc.entities;
 
+import com.hydrahtec.exceptiondoc.exceptions.BusinessException;
+
 public class AccountEntity {
     private Integer number;
     private String holder;
@@ -52,15 +54,15 @@ public class AccountEntity {
     }
 
     public void withdraw(double amount) {
+        validadeWithdraw(amount);
         balance -= amount;
     }
 
-    public String validadeWithdraw(double amount) {
+    private void validadeWithdraw(double amount) {
         if (amount > getWithdrawLimit()) {
-            return "Erro de saque: A quantia excede o limite de saque.";
+            throw new BusinessException("Erro de saque: A quantia excede o limite de saque.");
         } else if (amount > getBalance()) {
-            return "Erro de saque: Saldo insuficiente";
+            throw new BusinessException("Erro de saque: Saldo insuficiente");
         }
-        return null;
     }
 }

@@ -1,6 +1,7 @@
 package com.hydrahtec.exceptiondoc;
 
 import com.hydrahtec.exceptiondoc.entities.AccountEntity;
+import com.hydrahtec.exceptiondoc.exceptions.BusinessException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -36,13 +37,12 @@ public class ExceptiondocApplication {
 		System.out.println("Quanto você quer sacar do saldo de: " + balance);
 		double amount = sc.nextDouble();
 
-		String error = acc.validadeWithdraw(amount);
-
-		if(error != null) {
-			System.out.println(error);
-		} else {
+		try {
 			acc.withdraw(amount);
-			System.out.printf("Novo saldo: %.2f%n", acc.getBalance());
+			System.out.printf("Saldo restante: %.2f%n", acc.getBalance());
+		} catch (BusinessException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 
 		sc.close();
