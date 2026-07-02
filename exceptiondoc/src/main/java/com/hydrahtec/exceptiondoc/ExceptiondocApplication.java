@@ -36,9 +36,14 @@ public class ExceptiondocApplication {
 		System.out.println("Quanto você quer sacar do saldo de: " + balance);
 		double amount = sc.nextDouble();
 
-		acc.withdraw(amount);
-
-		System.out.printf("Novo saldo: %.2f%n", acc.getBalance());
+		if (amount > acc.getWithdrawLimit()) {
+			System.out.println("Erro de saque: A quantia excede o limite de saque.");
+		} else if (amount > acc.getBalance()) {
+			System.out.println("Erro de saque: Saldo insuficiente");
+		} else {
+			acc.withdraw(amount);
+			System.out.printf("Novo saldo: %.2f%n", acc.getBalance());
+		}
 
 		sc.close();
 
