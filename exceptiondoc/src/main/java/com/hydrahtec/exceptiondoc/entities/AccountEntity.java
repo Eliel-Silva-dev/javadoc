@@ -54,4 +54,13 @@ public class AccountEntity {
     public void withdraw(double amount) {
         balance -= amount;
     }
+
+    public String validadeWithdraw(double amount) {
+        if (amount > getWithdrawLimit()) {
+            return "Erro de saque: A quantia excede o limite de saque.";
+        } else if (amount > getBalance()) {
+            return "Erro de saque: Saldo insuficiente";
+        }
+        return null;
+    }
 }
