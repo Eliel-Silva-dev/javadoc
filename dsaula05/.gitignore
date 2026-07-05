@@ -38,3 +38,7 @@ build/
 
 mvnw
 mvnw.cmd
+
+# Ignorar a pasta de logs
+logs/
+*.log

@@ -1,3 +1,8 @@
 spring:
   application:
     name: dsaula05
+logging:
+  level:
+    root: INFO
+    com.hydrahtec.dsaula05: DEBUG
+    #org.springframework.web: DEBUG
