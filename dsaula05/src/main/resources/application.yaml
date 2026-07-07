@@ -3,6 +3,6 @@ spring:
     name: dsaula05
 logging:
   level:
-    root: INFO
+    root: WARN
     com.hydrahtec.dsaula05: DEBUG
     #org.springframework.web: DEBUG
