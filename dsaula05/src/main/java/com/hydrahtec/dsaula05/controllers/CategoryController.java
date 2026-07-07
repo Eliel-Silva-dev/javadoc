@@ -1,12 +1,10 @@
 package com.hydrahtec.dsaula05.controllers;
 
+import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
 import entities.CategoryEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +21,25 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(categories);
     }
 
-//    @GetMapping(value = "/{id}")
-//    public ResponseEntity<> findById(@RequestParam Long id) {
-//
-//
-//        return ResponseEntity.status(HttpStatus.OK).body();
-//    }
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<CategoryEntity> findById(@PathVariable Long id) {
+
+        CategoryEntity category = new CategoryEntity();
+
+        try {
+            if(id == 1) {
+                category.setId(1L);
+                category.setName("Eletronics");
+
+                return ResponseEntity.status(HttpStatus.OK).body(category);
+            } else {
+                throw new CategoryNotFoundException("Categoria inezistente");
+            }
+        } catch (CategoryNotFoundException ex) {
+            category.setId(null);
+            category.setName(null);
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(category);
+        }
+    }
 }
