@@ -2,6 +2,8 @@ package com.hydrahtec.dsaula05.controllers;
 
 import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
 import com.hydrahtec.dsaula05.entities.CategoryEntity;
+import com.hydrahtec.dsaula05.repositories.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +15,8 @@ import java.util.List;
 @RequestMapping(value = "/categories")
 public class CategoryController {
 
-    //@Autowired
-    //private CategoryRepository categoryRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping
     public ResponseEntity<List<CategoryEntity>> findAll() {
