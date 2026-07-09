@@ -1,12 +1,15 @@
 package com.hydrahtec.dsaula05.controllers;
 
-import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
 import com.hydrahtec.dsaula05.entities.CategoryEntity;
+import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
 import com.hydrahtec.dsaula05.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +36,7 @@ public class CategoryController {
         CategoryEntity category = new CategoryEntity();
 
         try {
-            if(id == 1) {
+            if (id == 1) {
                 category.setId(1L);
                 category.setName("Eletronics");
 

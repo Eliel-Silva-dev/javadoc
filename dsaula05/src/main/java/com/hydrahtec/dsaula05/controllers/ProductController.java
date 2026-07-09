@@ -1,7 +1,7 @@
 package com.hydrahtec.dsaula05.controllers;
 
-import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
 import com.hydrahtec.dsaula05.entities.CategoryEntity;
+import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
 import com.hydrahtec.dsaula05.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,7 @@ public class ProductController {
         CategoryEntity category = new CategoryEntity();
 
         try {
-            if(id == 1) {
+            if (id == 1) {
                 category.setId(1L);
                 category.setName("Eletronics");
 

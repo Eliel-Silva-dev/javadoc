@@ -17,7 +17,7 @@ public class ProductEntity implements Serializable {
     private String name;
     private Double price;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
 
