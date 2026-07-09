@@ -1,17 +1,26 @@
 package com.hydrahtec.dsaula05.entities;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
+@Entity
+@Table(name = "categories")
 public class CategoryEntity implements Serializable {
-    private static final Logger log = LoggerFactory.getLogger(CategoryEntity.class);
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "category")
+    private Set<ProductEntity> products;
 
     public CategoryEntity() {
     }
