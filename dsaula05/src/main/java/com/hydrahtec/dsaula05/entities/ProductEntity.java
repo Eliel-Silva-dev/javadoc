@@ -1,22 +1,28 @@
 package com.hydrahtec.dsaula05.entities;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "products")
 public class ProductEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-    private static final Logger log = LoggerFactory.getLogger(ProductEntity.class);
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private Double price;
 
+    @ManyToMany
+    @JoinColumn(name = "category_id")
     private CategoryEntity category;
 
-    public ProductEntity() {}
+    public ProductEntity() {
+    }
 
     public ProductEntity(Long id, String name, Double price, CategoryEntity category) {
         this.id = id;
