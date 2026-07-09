@@ -1,4 +1,4 @@
-package entities;
+package com.hydrahtec.dsaula05.entities;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
