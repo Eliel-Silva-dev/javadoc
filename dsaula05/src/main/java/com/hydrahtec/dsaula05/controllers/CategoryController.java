@@ -2,7 +2,7 @@ package com.hydrahtec.dsaula05.controllers;
 
 import com.hydrahtec.dsaula05.entities.CategoryEntity;
 import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
-import com.hydrahtec.dsaula05.repositories.CategoryRepository;
+import com.hydrahtec.dsaula05.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,15 +18,13 @@ import java.util.List;
 public class CategoryController {
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
     @GetMapping
     public ResponseEntity<List<CategoryEntity>> findAll() {
-        List<CategoryEntity> categories = new ArrayList<>();
-        categories.add(new CategoryEntity(1L, "Eletronics"));
-        categories.add(new CategoryEntity(2L, "Books"));
+        List<CategoryEntity> categories = categoryService.findAllCategories();
 
-        return ResponseEntity.status(HttpStatus.OK).body(categories);
+        return ResponseEntity.status(HttpStatus.OK).body(categories);   
     }
 
     @GetMapping(value = "/{id}")
