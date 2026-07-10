@@ -24,28 +24,20 @@ public class CategoryController {
     public ResponseEntity<List<CategoryEntity>> findAll() {
         List<CategoryEntity> categories = categoryService.findAllCategories();
 
-        return ResponseEntity.status(HttpStatus.OK).body(categories);   
+        return ResponseEntity.status(HttpStatus.OK).body(categories);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<CategoryEntity> findById(@PathVariable Long id) {
 
-        CategoryEntity category = new CategoryEntity();
-
         try {
-            if (id == 1) {
-                category.setId(1L);
-                category.setName("Eletronics");
+            CategoryEntity category = categoryService.findCategoryById(id);
 
-                return ResponseEntity.status(HttpStatus.OK).body(category);
-            } else {
-                throw new CategoryNotFoundException("Categoria inezistente");
-            }
+            return ResponseEntity.status(HttpStatus.OK).body(category);
+
         } catch (CategoryNotFoundException ex) {
-            category.setId(null);
-            category.setName(null);
 
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(category);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 }
