@@ -22,13 +22,13 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-//    public CategoryEntity findCategoryById(Long id) {
-//        Optional<CategoryEntity> category = categoryRepository.findById(id);
-//
-//        if(category.isPresent()) {
-//            return category.get();
-//        } else {
-//            throw new CategoryNotFoundException("Category not found");
-//        }
-//    }
+    public CategoryEntity findCategoryById(Long id) {
+        Optional<CategoryEntity> category = categoryRepository.findById(id);
+
+        if(category.isPresent()) {
+            return category.get();
+        } else {
+            throw new CategoryNotFoundException("Category not found");
+        }
+    }
 }
