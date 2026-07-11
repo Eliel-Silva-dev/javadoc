@@ -2,6 +2,7 @@ package com.hydrahtec.dsaula05.controllers;
 
 import com.hydrahtec.dsaula05.entities.ProductEntity;
 import com.hydrahtec.dsaula05.exceptions.productNotFoundException;
+import com.hydrahtec.dsaula05.models.ProductDto;
 import com.hydrahtec.dsaula05.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,17 +26,17 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductEntity>> findAll() {
-        List<ProductEntity> categories = productService.findAllProduct();
+    public ResponseEntity<List<ProductDto>> findAll() {
+        List<ProductDto> categories = productService.findAllProduct();
 
         return ResponseEntity.status(HttpStatus.OK).body(categories);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<ProductEntity> findById(@PathVariable Long id) {
+    public ResponseEntity<ProductDto> findById(@PathVariable Long id) {
 
         try {
-            ProductEntity product = productService.findProductById(id);
+            ProductDto product = productService.findProductById(id);
 
             return ResponseEntity.status(HttpStatus.OK).body(product);
 
