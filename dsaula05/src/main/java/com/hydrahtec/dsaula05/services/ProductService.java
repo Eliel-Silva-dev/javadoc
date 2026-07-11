@@ -19,11 +19,11 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public List<ProductEntity> findAllRepository() {
+    public List<ProductEntity> findAllProduct() {
         return productRepository.findAll();
     }
 
-    public ProductEntity findRepositoryById(Long id) {
+    public ProductEntity findProductById(Long id) {
         Optional<ProductEntity> category = productRepository.findById(id);
 
         if (category.isPresent()) {

@@ -1,8 +1,8 @@
 package com.hydrahtec.dsaula05.controllers;
 
-import com.hydrahtec.dsaula05.entities.CategoryEntity;
-import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
-import com.hydrahtec.dsaula05.repositories.ProductRepository;
+import com.hydrahtec.dsaula05.entities.ProductEntity;
+import com.hydrahtec.dsaula05.exceptions.productNotFoundException;
+import com.hydrahtec.dsaula05.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,43 +11,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/products")
 public class ProductController {
+
+    private final ProductService productService;
+
     @Autowired
-    private ProductRepository productRepository;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping
-    public ResponseEntity<List<CategoryEntity>> findAll() {
-        List<CategoryEntity> categories = new ArrayList<>();
-        categories.add(new CategoryEntity(1L, "Eletronics"));
-        categories.add(new CategoryEntity(2L, "Books"));
+    public ResponseEntity<List<ProductEntity>> findAll() {
+        List<ProductEntity> categories = productService.findAllProduct();
 
         return ResponseEntity.status(HttpStatus.OK).body(categories);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CategoryEntity> findById(@PathVariable Long id) {
-
-        CategoryEntity category = new CategoryEntity();
+    public ResponseEntity<ProductEntity> findById(@PathVariable Long id) {
 
         try {
-            if (id == 1) {
-                category.setId(1L);
-                category.setName("Eletronics");
+            ProductEntity product = productService.findProductById(id);
 
-                return ResponseEntity.status(HttpStatus.OK).body(category);
-            } else {
-                throw new CategoryNotFoundException("Categoria inezistente");
-            }
-        } catch (CategoryNotFoundException ex) {
-            category.setId(null);
-            category.setName(null);
+            return ResponseEntity.status(HttpStatus.OK).body(product);
 
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(category);
+        } catch (productNotFoundException ex) {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 }
