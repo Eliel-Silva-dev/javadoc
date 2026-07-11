@@ -22,20 +22,31 @@ public class ProductService {
     }
 
     public List<ProductDto> findAllProduct() {
+        log.info("Find all products");
         return productRepository.findAll().stream()
-                .map(entity -> new ProductDto(
-                        entity.getName(),
-                        entity.getPrice(),
-                        entity.getCategory() != null ? entity.getCategory().getId() : null
-                )).toList();
+                .map(entity -> {
+                    log.info("Produto encontrado com sucesso");
+                    return new ProductDto(
+                            entity.getName(),
+                            entity.getPrice(),
+                            entity.getCategory() != null ? entity.getCategory().getId() : null
+                    );
+                }).toList();
     }
 
     public ProductDto findProductById(Long id) {
+        log.info("Buscando produto com id {}", id);
         return productRepository.findById(id)
-                .map(entity -> new ProductDto(
-                        entity.getName(),
-                        entity.getPrice(),
-                        entity.getCategory() != null ? entity.getCategory().getId() : null))
-                .orElseThrow(() -> new ProductNotFoundException("product not found"));
+                .map(entity -> {
+                    log.info("Produto com id {} encontrado com sucesso", id);
+                    return new ProductDto(
+                            entity.getName(),
+                            entity.getPrice(),
+                            entity.getCategory() != null ? entity.getCategory().getId() : null);
+                })
+                .orElseThrow(() -> {
+                    log.info("Falha ao buscar o produto: id {} não encontrado", id);
+                    return new ProductNotFoundException("product not found");
+                });
     }
 }
