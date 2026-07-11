@@ -9,6 +9,6 @@ public class CategoryNotFoundException extends RuntimeException {
 
     @Override
     public String toString() {
-        return "Categoria não encontrada no banco";
+        return "CategoryNotFoundException{}";
     }
 }
