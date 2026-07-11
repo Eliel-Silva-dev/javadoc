@@ -2,13 +2,11 @@ package com.hydrahtec.dsaula05.entities;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "products")
-public class ProductEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class ProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

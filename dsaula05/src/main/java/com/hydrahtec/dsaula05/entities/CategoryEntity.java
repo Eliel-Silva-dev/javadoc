@@ -3,14 +3,12 @@ package com.hydrahtec.dsaula05.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "categories")
-public class CategoryEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class CategoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
