@@ -1,7 +1,5 @@
 package com.hydrahtec.dsaula05.services;
 
-import com.hydrahtec.dsaula05.entities.ProductEntity;
-import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
 import com.hydrahtec.dsaula05.exceptions.ProductNotFoundException;
 import com.hydrahtec.dsaula05.models.ProductDto;
 import com.hydrahtec.dsaula05.repositories.ProductRepository;
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -34,15 +31,11 @@ public class ProductService {
     }
 
     public ProductDto findProductById(Long id) {
-        Optional<ProductEntity> product = productRepository.findById(id);
-
-        if (product.isPresent()) {
-            return new ProductDto(
-                    product.get().getName(),
-                    product.get().getPrice(),
-                    product.get().getCategory().getId());
-        } else {
-            throw new ProductNotFoundException("product not found");
-        }
+        return productRepository.findById(id)
+                .map(entity -> new ProductDto(
+                        entity.getName(),
+                        entity.getPrice(),
+                        entity.getCategory() != null ? entity.getCategory().getId() : null))
+                .orElseThrow(() -> new ProductNotFoundException("product not found"));
     }
 }
