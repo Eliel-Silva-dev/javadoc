@@ -1,9 +1,9 @@
 package com.hydrahtec.dsaula05.exceptions;
 
-public class productNotFoundException extends RuntimeException {
+public class ProductNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public productNotFoundException(String msg) {
+    public ProductNotFoundException(String msg) {
         super(msg);
     }
 

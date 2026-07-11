@@ -1,7 +1,6 @@
 package com.hydrahtec.dsaula05.controllers;
 
-import com.hydrahtec.dsaula05.entities.ProductEntity;
-import com.hydrahtec.dsaula05.exceptions.productNotFoundException;
+import com.hydrahtec.dsaula05.exceptions.ProductNotFoundException;
 import com.hydrahtec.dsaula05.models.ProductDto;
 import com.hydrahtec.dsaula05.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class ProductController {
 
             return ResponseEntity.status(HttpStatus.OK).body(product);
 
-        } catch (productNotFoundException ex) {
+        } catch (ProductNotFoundException ex) {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
