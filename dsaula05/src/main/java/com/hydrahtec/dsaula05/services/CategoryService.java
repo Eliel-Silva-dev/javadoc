@@ -1,5 +1,6 @@
 package com.hydrahtec.dsaula05.services;
 
+import com.hydrahtec.dsaula05.entities.CategoryEntity;
 import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
 import com.hydrahtec.dsaula05.models.CategoryDto;
 import com.hydrahtec.dsaula05.repositories.CategoryRepository;
@@ -22,10 +23,7 @@ public class CategoryService {
         return categoryRepository.findAll().stream()
                 .map(entity -> {
                     log.info("Categia encontrada com sucesso");
-                    return new CategoryDto(
-                            entity.getId(),
-                            entity.getName()
-                    );
+                    return categoryDto(entity);
                 }).toList();
     }
 
@@ -34,13 +32,16 @@ public class CategoryService {
         return categoryRepository.findById(id)
                 .map(entity -> {
                     log.info("Categoria com id {} encontrada com sucesso", id);
-                    return new CategoryDto(
-                            entity.getId(),
-                            entity.getName()
-                    );
+                    return categoryDto(entity);
                 }).orElseThrow(() -> {
                     log.error("Falha ao buscar categoria: id {} não encontrada", id);
                     return new CategoryNotFoundException("Category not found");
                 });
+    }
+
+    private CategoryDto categoryDto(CategoryEntity entity) {
+        return new CategoryDto(
+                entity.getId(),
+                entity.getName());
     }
 }
