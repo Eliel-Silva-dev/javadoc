@@ -45,7 +45,7 @@ public class ProductService {
                             entity.getCategory() != null ? entity.getCategory().getId() : null);
                 })
                 .orElseThrow(() -> {
-                    log.info("Falha ao buscar o produto: id {} não encontrado", id);
+                    log.error("Falha ao buscar o produto: id {} não encontrado", id);
                     return new ProductNotFoundException("product not found");
                 });
     }

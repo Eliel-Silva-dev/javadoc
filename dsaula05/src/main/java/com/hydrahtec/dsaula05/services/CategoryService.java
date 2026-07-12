@@ -2,6 +2,7 @@ package com.hydrahtec.dsaula05.services;
 
 import com.hydrahtec.dsaula05.entities.CategoryEntity;
 import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
+import com.hydrahtec.dsaula05.models.CategoryDto;
 import com.hydrahtec.dsaula05.repositories.CategoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +19,19 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<CategoryEntity> findAllCategories() {
-        return categoryRepository.findAll();
+    public List<CategoryDto> findAllCategories() {
+        log.info("Buscando todas as categorias");
+        return categoryRepository.findAll().stream()
+                .map(entity -> {
+                    log.info("Categia encontrada com sucesso");
+                    return new CategoryDto(
+                            entity.getId(),
+                            entity.getName()
+                    );
+                }).toList();
     }
 
-    public CategoryEntity findCategoryById(Long id) {
+    public CategoryDto findCategoryById(Long id) {
         Optional<CategoryEntity> category = categoryRepository.findById(id);
 
         if (category.isPresent()) {

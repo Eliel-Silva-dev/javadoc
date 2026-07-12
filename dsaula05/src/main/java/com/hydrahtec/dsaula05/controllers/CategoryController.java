@@ -2,6 +2,7 @@ package com.hydrahtec.dsaula05.controllers;
 
 import com.hydrahtec.dsaula05.entities.CategoryEntity;
 import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
+import com.hydrahtec.dsaula05.models.CategoryDto;
 import com.hydrahtec.dsaula05.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,17 +26,17 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CategoryEntity>> findAll() {
-        List<CategoryEntity> categories = categoryService.findAllCategories();
+    public ResponseEntity<List<CategoryDto>> findAll() {
+        List<CategoryDto> categories = categoryService.findAllCategories();
 
         return ResponseEntity.status(HttpStatus.OK).body(categories);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CategoryEntity> findById(@PathVariable Long id) {
+    public ResponseEntity<CategoryDto> findById(@PathVariable Long id) {
 
         try {
-            CategoryEntity category = categoryService.findCategoryById(id);
+            CategoryDto category = categoryService.findCategoryById(id);
 
             return ResponseEntity.status(HttpStatus.OK).body(category);
 
