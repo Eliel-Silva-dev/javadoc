@@ -1,12 +1,11 @@
 package com.hydrahtec.dsaula05.exceptions;
 
-import org.springframework.http.HttpStatus;
-
 import java.time.LocalDateTime;
 
 public record RestErrorMessage(
         LocalDateTime timestamp,
-        HttpStatus status,
+        int status,
         String error,
+        String message,
         String path) {
 }
