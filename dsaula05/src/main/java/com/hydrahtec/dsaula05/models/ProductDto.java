@@ -1,6 +1,19 @@
 package com.hydrahtec.dsaula05.models;
 
-public record ProductDto(String name,
-                         Double price,
-                         Long categoryId) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
+public record ProductDto(
+        @NotBlank(message = "O nome do produto é obrigatório")
+        @Size(min = 3, max = 80, message = "O nome deve ter entre 3 e 80 caracteres")
+        String name,
+
+        @NotNull(message = "O preço é obrigatório")
+        @Positive(message = "O preço deve ser positivo")
+        Double price,
+
+        @NotNull(message = "CategoriId não pode ser nulo")
+        Long categoryId) {
 }
