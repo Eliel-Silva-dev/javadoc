@@ -1,5 +1,6 @@
 package com.hydrahtec.dsaula05.services;
 
+import com.hydrahtec.dsaula05.entities.ProductEntity;
 import com.hydrahtec.dsaula05.exceptions.ProductNotFoundException;
 import com.hydrahtec.dsaula05.models.ProductDto;
 import com.hydrahtec.dsaula05.repositories.ProductRepository;
@@ -26,11 +27,7 @@ public class ProductService {
         return productRepository.findAll().stream()
                 .map(entity -> {
                     log.info("Produto encontrado com sucesso");
-                    return new ProductDto(
-                            entity.getName(),
-                            entity.getPrice(),
-                            entity.getCategory() != null ? entity.getCategory().getId() : null
-                    );
+                    return productDto(entity);
                 }).toList();
     }
 
@@ -39,14 +36,19 @@ public class ProductService {
         return productRepository.findById(id)
                 .map(entity -> {
                     log.info("Produto com id {} encontrado com sucesso", id);
-                    return new ProductDto(
-                            entity.getName(),
-                            entity.getPrice(),
-                            entity.getCategory() != null ? entity.getCategory().getId() : null);
+                    return productDto(entity);
                 })
                 .orElseThrow(() -> {
                     log.error("Falha ao buscar o produto: id {} não encontrado", id);
                     return new ProductNotFoundException("product not found");
                 });
+    }
+
+    private ProductDto productDto(ProductEntity entity) {
+        return new ProductDto(
+                entity.getId(),
+                entity.getName(),
+                entity.getPrice(),
+                entity.getCategory() != null ? entity.getCategory().getId() : null);
     }
 }
