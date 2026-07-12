@@ -35,7 +35,7 @@ public class CategoryService {
                     return categoryDto(entity);
                 }).orElseThrow(() -> {
                     log.error("Falha ao buscar categoria: id {} não encontrada", id);
-                    return new CategoryNotFoundException("Category not found");
+                    return new CategoryNotFoundException(id);
                 });
     }
 

@@ -1,14 +1,11 @@
 package com.hydrahtec.dsaula05.exceptions;
 
 public class CategoryNotFoundException extends RuntimeException {
-    private static final long serialVersionUID = 1L;
-
     public CategoryNotFoundException(String msg) {
         super(msg);
     }
 
-    @Override
-    public String toString() {
-        return "CategoryNotFoundException{}";
+    public CategoryNotFoundException(Long id) {
+        super("Categoria não encontrada, ID: " + id);
     }
 }
