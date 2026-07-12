@@ -4,6 +4,7 @@ import com.hydrahtec.dsaula05.models.CategoryDto;
 import com.hydrahtec.dsaula05.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,14 +21,15 @@ public class CategoryController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<CategoryDto> findAll() {
-        return categoryService.findAllCategories();
+    public ResponseEntity<List<CategoryDto>> findAll() {
+        List<CategoryDto> categoryDtos = categoryService.findAllCategories();
+        return ResponseEntity.ok(categoryDtos);
     }
 
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CategoryDto findById(@PathVariable Long id) {
-        return categoryService.findCategoryById(id);
+    public ResponseEntity<CategoryDto> findById(@PathVariable Long id) {
+        CategoryDto categoryDto = categoryService.findCategoryById(id);
+        return ResponseEntity.ok(categoryDto);
     }
 }
