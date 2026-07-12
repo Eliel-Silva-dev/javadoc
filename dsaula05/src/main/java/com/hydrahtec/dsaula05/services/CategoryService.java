@@ -1,6 +1,5 @@
 package com.hydrahtec.dsaula05.services;
 
-import com.hydrahtec.dsaula05.entities.CategoryEntity;
 import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
 import com.hydrahtec.dsaula05.models.CategoryDto;
 import com.hydrahtec.dsaula05.repositories.CategoryRepository;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -32,12 +30,17 @@ public class CategoryService {
     }
 
     public CategoryDto findCategoryById(Long id) {
-        Optional<CategoryEntity> category = categoryRepository.findById(id);
-
-        if (category.isPresent()) {
-            return category.get();
-        } else {
-            throw new CategoryNotFoundException("Category not found");
-        }
+        log.info("Buscando categoria com id {}", id);
+        return categoryRepository.findById(id)
+                .map(entity -> {
+                    log.info("Categoria com id {} encontrada com sucesso", id);
+                    return new CategoryDto(
+                            entity.getId(),
+                            entity.getName()
+                    );
+                }).orElseThrow(() -> {
+                    log.error("Falha ao buscar categoria: id {} não encontrada", id);
+                    return new CategoryNotFoundException("Category not found");
+                });
     }
 }
