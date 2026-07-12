@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public record RestErrorMessage(
         LocalDateTime timestamp,
         int status,
-        String error,
         String message,
+        String error,
         String path) {
 }
