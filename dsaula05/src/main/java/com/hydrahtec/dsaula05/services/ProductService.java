@@ -39,7 +39,7 @@ public class ProductService {
                     return productDto(entity);
                 })
                 .orElseThrow(() -> {
-                    log.error("Falha ao buscar o produto: id {} não encontrado", id);
+                    //log.warn("Falha ao buscar o produto: id {} não encontrado", id);
                     return new ProductNotFoundException(id);
                 });
     }

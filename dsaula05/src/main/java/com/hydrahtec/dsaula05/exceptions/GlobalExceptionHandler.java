@@ -23,6 +23,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<RestErrorMessage> handleCategoryNotFound(CategoryNotFoundException ex, HttpServletRequest request) {
+        log.warn("Erro ao buscar a categoria - URI: {}, Mensagem: {}",
+                request.getRequestURI(),
+                ex.getMessage(),
+                ex
+        );
+
         RestErrorMessage error = new RestErrorMessage(
                 LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
@@ -35,6 +41,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<RestErrorMessage> handleProductNotFound(ProductNotFoundException ex, HttpServletRequest request) {
+        log.warn("Erro ao buscar o produto - URI: {}, Mensagem: {}",
+                request.getRequestURI(),
+                ex.getMessage(),
+                ex
+        );
+
         RestErrorMessage error = new RestErrorMessage(
                 LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
@@ -56,6 +68,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         String path = ((ServletWebRequest) request).getRequest().getRequestURI();
 
+        log.warn("Erro de validação na requisição: {} - Campos inválidos: {}", path, errors);
+
         RestErrorMessage errorMessage = new RestErrorMessage(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -65,11 +79,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 errors
         );
 
-        return ResponseEntity.badRequest().body(errorMessage);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<RestErrorMessage> handleGeneralException(Exception ex, HttpServletRequest request) {
+        log.error("Erro interno inesperado - URI: {}, Mensagem: {}",
+                request.getRequestURI(),
+                ex.getMessage(),
+                ex
+        );
 
         RestErrorMessage errorMessage = new RestErrorMessage(
                 LocalDateTime.now(),
