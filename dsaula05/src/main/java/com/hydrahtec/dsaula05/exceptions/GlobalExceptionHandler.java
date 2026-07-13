@@ -1,6 +1,8 @@
 package com.hydrahtec.dsaula05.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -17,6 +19,7 @@ import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(CategoryNotFoundException.class)
     public ResponseEntity<RestErrorMessage> handleCategoryNotFound(CategoryNotFoundException ex, HttpServletRequest request) {
@@ -63,5 +66,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         );
 
         return ResponseEntity.badRequest().body(errorMessage);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<RestErrorMessage> handleGeneralException(Exception ex, HttpServletRequest request) {
+
+        RestErrorMessage errorMessage = new RestErrorMessage(
+                LocalDateTime.now(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Ocorreu um erro inesperado no servidor. Nossa equipe já foi notificada",
+                "Internal server error",
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
     }
 }
