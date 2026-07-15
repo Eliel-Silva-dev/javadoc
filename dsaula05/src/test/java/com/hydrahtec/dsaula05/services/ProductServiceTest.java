@@ -1,13 +1,45 @@
 package com.hydrahtec.dsaula05.services;
 
+import com.hydrahtec.dsaula05.entities.CategoryEntity;
+import com.hydrahtec.dsaula05.entities.ProductEntity;
+import com.hydrahtec.dsaula05.models.ProductDto;
+import com.hydrahtec.dsaula05.repositories.ProductRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
-@SpringBootTest
+import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+@ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
 
+    @Mock
+    private ProductRepository productRepository;
+
+    @InjectMocks
+    private ProductService productService;
+
     @Test
-    void
+    @DisplayName("Deve retornar produto quando houver dados")
+    void deveReturn_ProductDtoList_When_ExistData() {
+        //ARANGE
+        CategoryEntity category = new CategoryEntity(2L, "Eletronics");
+        ProductEntity entity = new ProductEntity(1L, "NoteBook", 150.00, category);
+        when(productRepository.findAll()).thenReturn(List.of(entity));
+
+        //ACT
+        List<ProductDto> result = productService.findAllProduct();
+
+        //ASSERTIONS
+        assertThat(result).hasSize(1);
+        assertThat(result.getFirst().name()).isEqualTo("NoteBook");
+
+    }
 }
