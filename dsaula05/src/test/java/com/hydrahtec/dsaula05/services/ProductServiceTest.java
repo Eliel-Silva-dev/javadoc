@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,6 +41,24 @@ class ProductServiceTest {
         //ASSERTIONS
         assertThat(result).hasSize(1);
         assertThat(result.getFirst().name()).isEqualTo("NoteBook");
+
+    }
+
+    @Test
+    @DisplayName("Deve retornar produto quando o id existir")
+    void deveReturn_ProductDto_When_ExistId() {
+        //ARANGE
+        Long id = 1L;
+        CategoryEntity category = new CategoryEntity(2L, "Eletronics");
+        ProductEntity entity = new ProductEntity(id, "Tablete", 100.00, category);
+        when(productRepository.findById(id)).thenReturn(Optional.of(entity));
+
+        //ACT
+        ProductDto result = productService.findProductById(id);
+
+        //ASSERTIONS
+        assertThat(result).isNotNull();
+        assertThat(result.name()).isEqualTo("Tablete");
 
     }
 }
