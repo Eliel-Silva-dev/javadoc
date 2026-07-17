@@ -2,6 +2,7 @@ package com.hydrahtec.dsaula05.services;
 
 import com.hydrahtec.dsaula05.entities.CategoryEntity;
 import com.hydrahtec.dsaula05.entities.ProductEntity;
+import com.hydrahtec.dsaula05.exceptions.ProductNotFoundException;
 import com.hydrahtec.dsaula05.models.ProductDto;
 import com.hydrahtec.dsaula05.repositories.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -14,9 +15,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
@@ -60,5 +61,18 @@ class ProductServiceTest {
         assertThat(result).isNotNull();
         assertThat(result.name()).isEqualTo("Tablete");
 
+    }
+
+    @Test
+    @DisplayName("Deve retornar produto quando o id existir")
+    void deve_ThrowException_When_NotExistId() {
+        //ARANGE
+        Long id = 99L;
+        when(productRepository.findById(id)).thenReturn(Optional.empty());
+
+        //ACT and ASSERTIONS
+        assertThatThrownBy(() -> productService.findProductById(id))
+                .isInstanceOf(ProductNotFoundException.class)
+                .hasMessage("Produto não encontrado, ID: 99");
     }
 }
