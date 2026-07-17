@@ -39,5 +39,19 @@ class CategoryServiceTest {
         assertThat(result.getFirst().name()).isEqualTo("Eletronics");
     }
 
-    
+    @Test
+    @DisplayName("Deve retornar categorias se id existir")
+    public void sould_return_category_when_ExistId() {
+        //ARRANGE
+        Long id = 1L;
+        CategoryEntity category = new CategoryEntity(id, "Books");
+        when(categoryRepository.findById(id)).thenReturn(Optional.of(category));
+
+        //ACT
+        CategoryDto result = categoryService.findCategoryById(id);
+
+        //ASSERTIONS
+        assertThat(result).isNotNull();
+        assertThat(result.name()).isEqualTo("Books");
+    }
 }
