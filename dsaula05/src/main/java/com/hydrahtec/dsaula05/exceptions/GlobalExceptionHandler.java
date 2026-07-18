@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestControllerAdvice
-public class GlobalExceptonHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(CategoryNotFoundException.class)
@@ -32,8 +32,8 @@ public class GlobalExceptonHandler extends ResponseEntityExceptionHandler {
         RestErrorMessage error = new RestErrorMessage(
                 LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
-                "Category Not Found",
                 ex.getMessage(),
+                "Category Not Found",
                 request.getRequestURI()
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
@@ -50,8 +50,8 @@ public class GlobalExceptonHandler extends ResponseEntityExceptionHandler {
         RestErrorMessage error = new RestErrorMessage(
                 LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
-                "Product Not Found",
                 ex.getMessage(),
+                "Product Not Found",
                 request.getRequestURI()
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
