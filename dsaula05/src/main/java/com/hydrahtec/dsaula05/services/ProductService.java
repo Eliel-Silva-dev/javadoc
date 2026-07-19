@@ -53,12 +53,10 @@ public class ProductService {
         CategoryEntity category = categoryRepository.findById(dto.categoryId())
                 .orElseThrow(() -> new CategoryNotFoundException(dto.categoryId()));
 
-        ProductEntity newEntity = new ProductEntity(
-                null,
-                dto.name(),
-                dto.price(),
-                category
-        );
+        ProductEntity newEntity = new ProductEntity();
+        newEntity.setName(dto.name());
+        newEntity.setPrice(dto.price());
+        newEntity.setCategory(category);
 
         ProductEntity entitySaved = productRepository.save(newEntity);
 

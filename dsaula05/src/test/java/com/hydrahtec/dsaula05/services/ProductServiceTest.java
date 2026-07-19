@@ -4,6 +4,7 @@ import com.hydrahtec.dsaula05.entities.CategoryEntity;
 import com.hydrahtec.dsaula05.entities.ProductEntity;
 import com.hydrahtec.dsaula05.exceptions.ProductNotFoundException;
 import com.hydrahtec.dsaula05.models.ProductDto;
+import com.hydrahtec.dsaula05.repositories.CategoryRepository;
 import com.hydrahtec.dsaula05.repositories.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,12 +19,16 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
 
     @Mock
     private ProductRepository productRepository;
+
+    @Mock
+    private CategoryRepository categoryRepository;
 
     @InjectMocks
     private ProductService productService;
@@ -74,5 +79,25 @@ class ProductServiceTest {
         assertThatThrownBy(() -> productService.findProductById(id))
                 .isInstanceOf(ProductNotFoundException.class)
                 .hasMessage("Produto não encontrado, ID: 99");
+    }
+
+    @Test
+    @DisplayName("Deve salvar entity no banco de dados")
+    void deve_salvar_entity_noBancoDeDados() {
+        //ARANGE
+        CategoryEntity category = new CategoryEntity(2L, "Eletronics");
+        ProductDto dto = new ProductDto(null, "PC gamer", 550.00, 2L);
+        ProductEntity entity = new ProductEntity(1L, "PC gamer", 550.00, category);
+
+        when(categoryRepository.findById(dto.categoryId())).thenReturn(Optional.of(category));
+        when(productRepository.save(any(ProductEntity.class))).thenReturn(entity);
+
+        //ACT
+        ProductDto result = productService.saveProduct(dto);
+
+        //ASSERTIONS
+        assertThat(result).isNotNull();
+        assertThat(result.name()).isEqualTo("PC gamer");
+        assertThat(result.categoryId()).isEqualTo(2L);
     }
 }
