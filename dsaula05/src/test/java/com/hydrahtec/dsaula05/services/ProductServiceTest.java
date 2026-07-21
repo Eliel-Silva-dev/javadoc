@@ -2,6 +2,7 @@ package com.hydrahtec.dsaula05.services;
 
 import com.hydrahtec.dsaula05.entities.CategoryEntity;
 import com.hydrahtec.dsaula05.entities.ProductEntity;
+import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
 import com.hydrahtec.dsaula05.exceptions.ProductNotFoundException;
 import com.hydrahtec.dsaula05.models.ProductDto;
 import com.hydrahtec.dsaula05.repositories.CategoryRepository;
@@ -20,9 +21,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
@@ -106,5 +105,20 @@ class ProductServiceTest {
         assertThat(savedEntity.getName()).isEqualTo("PC gamer");
         assertThat(savedEntity.getPrice()).isEqualTo(550.0);
         assertThat(savedEntity.getCategory().getId()).isEqualTo(2L);
+    }
+
+    @Test
+    @DisplayName("Deve lançar exception quando id não existir ao salvar")
+    void sould_throwException_when_notExistId_toSave() {
+        //ARRANGE
+        ProductDto dto = new ProductDto(null, "PC gamer", 550.00, 99L);
+        when(categoryRepository.findById(99L)).thenReturn(Optional.empty());
+
+        //ACT ASSERTIONS
+        assertThatThrownBy(() -> productService.saveProduct(dto))
+                .isInstanceOf(CategoryNotFoundException.class)
+                .hasMessage("Categoria não encontrada, ID: 99");
+
+        verify(productRepository, never()).save(any());
     }
 }
