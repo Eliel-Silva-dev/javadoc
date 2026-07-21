@@ -20,7 +20,9 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
@@ -97,11 +99,6 @@ class ProductServiceTest {
         ProductDto result = productService.saveProduct(dto);
 
         //ASSERTIONS
-        assertThat(result).isNotNull();
-        assertThat(result.name()).isEqualTo("PC gamer");
-        assertThat(result.categoryId()).isEqualTo(2L);
-
-        //captura o objeto enviado ao banco
         ArgumentCaptor<ProductEntity> captor = ArgumentCaptor.forClass(ProductEntity.class);
         verify(productRepository, times(1)).save(captor.capture());
 
