@@ -9,6 +9,7 @@ import com.hydrahtec.dsaula05.repositories.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -18,8 +19,8 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductServiceTest {
@@ -87,10 +88,10 @@ class ProductServiceTest {
         //ARANGE
         CategoryEntity category = new CategoryEntity(2L, "Eletronics");
         ProductDto dto = new ProductDto(null, "PC gamer", 550.00, 2L);
-        ProductEntity entity = new ProductEntity(1L, "PC gamer", 550.00, category);
 
-        when(categoryRepository.findById(dto.categoryId())).thenReturn(Optional.of(category));
-        when(productRepository.save(any(ProductEntity.class))).thenReturn(entity);
+        //retorna a entidade quando o save for chamado
+        when(categoryRepository.findById(2L)).thenReturn(Optional.of(category));
+        when(productRepository.save(any(ProductEntity.class))).thenAnswer(i -> i.getArguments()[0]);
 
         //ACT
         ProductDto result = productService.saveProduct(dto);
@@ -99,5 +100,14 @@ class ProductServiceTest {
         assertThat(result).isNotNull();
         assertThat(result.name()).isEqualTo("PC gamer");
         assertThat(result.categoryId()).isEqualTo(2L);
+
+        //captura o objeto enviado ao banco
+        ArgumentCaptor<ProductEntity> captor = ArgumentCaptor.forClass(ProductEntity.class);
+        verify(productRepository, times(1)).save(captor.capture());
+
+        ProductEntity savedEntity = captor.getValue();
+        assertThat(savedEntity.getName()).isEqualTo("PC gamer");
+        assertThat(savedEntity.getPrice()).isEqualTo(550.0);
+        assertThat(savedEntity.getCategory().getId()).isEqualTo(2L);
     }
 }
