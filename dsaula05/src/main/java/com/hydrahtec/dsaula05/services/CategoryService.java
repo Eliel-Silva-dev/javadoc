@@ -39,6 +39,12 @@ public class CategoryService {
                 });
     }
 
+    public CategoryDto saveCategory(CategoryDto categoryDto) {
+        CategoryEntity newEntity = new CategoryEntity();
+        newEntity.setName(categoryDto.name());
+
+        return categoryDto(categoryRepository.save(newEntity));
+    }
     private CategoryDto categoryDto(CategoryEntity entity) {
         return new CategoryDto(
                 entity.getId(),

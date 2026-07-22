@@ -58,9 +58,9 @@ public class ProductService {
         newEntity.setPrice(dto.price());
         newEntity.setCategory(category);
 
-        ProductEntity entitySaved = productRepository.save(newEntity);
+        ProductEntity savedEntity = productRepository.save(newEntity);
 
-        return productDto(entitySaved);
+        return productDto(savedEntity);
     }
 
     private ProductDto productDto(ProductEntity entity) {
