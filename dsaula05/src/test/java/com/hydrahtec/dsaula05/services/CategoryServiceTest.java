@@ -7,6 +7,7 @@ import com.hydrahtec.dsaula05.repositories.CategoryRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceTest {
@@ -68,5 +69,23 @@ class CategoryServiceTest {
         assertThatThrownBy(() -> categoryService.findCategoryById(id))
                 .isInstanceOf(CategoryNotFoundException.class)
                 .hasMessage("Categoria não encontrada, ID: 99");
+    }
+
+    @Test
+    @DisplayName("Deveria salvar entidade no banco de dados")
+    void should_saveCategory_onDB_when_existsData() {
+        //ARANGE
+        CategoryDto category = new CategoryDto(1L, "Eletronics");
+        when(categoryRepository.save(any(CategoryEntity.class))).thenAnswer(i -> i.getArguments()[0]);
+
+        //ACT
+        CategoryDto result = categoryService.saveCategory(category);
+
+        //ASSERTIONS
+        ArgumentCaptor<CategoryEntity> captor = ArgumentCaptor.forClass(CategoryEntity.class);
+        verify(categoryRepository, times(1)).save(captor.capture());
+
+        CategoryEntity savedCategory = captor.getValue();
+        assertThat(savedCategory.getName()).isEqualTo("Eletronics");
     }
 }
