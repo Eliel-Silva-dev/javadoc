@@ -2,12 +2,11 @@ package com.hydrahtec.dsaula05.controllers;
 
 import com.hydrahtec.dsaula05.models.ProductDto;
 import com.hydrahtec.dsaula05.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +31,11 @@ public class ProductController {
     public ResponseEntity<ProductDto> findById(@PathVariable Long id) {
         ProductDto productDto = productService.findProductById(id);
         return ResponseEntity.ok(productDto);
+    }
+
+    @PostMapping
+    public ResponseEntity<ProductDto> saveProduct(@RequestBody @Valid ProductDto productDto) {
+        ProductDto result = productService.saveProduct(productDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 }
