@@ -19,5 +19,6 @@ public record ProductDto(
         Double price,
 
         @NotNull(message = "CategoriId não pode ser nulo")
+        @Positive(message = "O indice da cateforia não pode ser negativo")
         Long categoryId) {
 }
