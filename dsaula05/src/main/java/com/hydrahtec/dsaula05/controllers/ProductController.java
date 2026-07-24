@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -36,6 +38,12 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<ProductDto> saveProduct(@RequestBody @Valid ProductDto productDto) {
         ProductDto result = productService.saveProduct(productDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                .path("/{id}")
+                .buildAndExpand(result.id())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(result);
     }
 }
