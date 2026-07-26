@@ -2,11 +2,14 @@ package com.hydrahtec.dsaula05.controllers;
 
 import com.hydrahtec.dsaula05.models.CategoryDto;
 import com.hydrahtec.dsaula05.services.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -31,5 +34,17 @@ public class CategoryController {
     public ResponseEntity<CategoryDto> findById(@PathVariable Long id) {
         CategoryDto categoryDto = categoryService.findCategoryById(id);
         return ResponseEntity.ok(categoryDto);
+    }
+
+    @PostMapping
+    public ResponseEntity<CategoryDto> saveCategory(@RequestBody @Valid CategoryDto categoryDto) {
+        CategoryDto result = categoryService.saveCategory(categoryDto);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                .path("/{id}")
+                .buildAndExpand(result.id())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(result);
     }
 }
