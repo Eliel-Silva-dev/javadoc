@@ -20,23 +20,21 @@ public class CategoryService {
 
     public List<CategoryDto> findAllCategories() {
         log.info("Buscando todas as categorias");
-        return categoryRepository.findAll().stream()
-                .map(entity -> {
-                    log.info("Categia encontrada com sucesso");
-                    return categoryDto(entity);
-                }).toList();
+        return categoryRepository.findAll().stream().map(entity -> {
+            log.info("Categia encontrada com sucesso");
+            return categoryDto(entity);
+        }).toList();
     }
 
     public CategoryDto findCategoryById(Long id) {
         log.info("Buscando categoria com id {}", id);
-        return categoryRepository.findById(id)
-                .map(entity -> {
-                    log.info("Categoria com id {} encontrada com sucesso", id);
-                    return categoryDto(entity);
-                }).orElseThrow(() -> {
-                    //log.error("Falha ao buscar categoria: id {} não encontrada", id);
-                    return new CategoryNotFoundException(id);
-                });
+        return categoryRepository.findById(id).map(entity -> {
+            log.info("Categoria com id {} encontrada com sucesso", id);
+            return categoryDto(entity);
+        }).orElseThrow(() -> {
+            //log.error("Falha ao buscar categoria: id {} não encontrada", id);
+            return new CategoryNotFoundException(id);
+        });
     }
 
     public CategoryDto saveCategory(CategoryDto categoryDto) {
@@ -45,9 +43,22 @@ public class CategoryService {
 
         return categoryDto(categoryRepository.save(newEntity));
     }
+
+    public CategoryDto updateCategory(Long id, CategoryDto newCategoryDto) {
+
+        log.info("Buscando categoria com id {} para atualização", id);
+        return categoryRepository.findById(id).map(entity -> {
+            log.info("Atualizando categoria com id {}", id);
+            entity.setName(newCategoryDto.name());
+
+            return categoryDto(categoryRepository.save(entity));
+        }).orElseThrow(() -> {
+            log.warn("Erro: autlização da categoria falhou, ID {} não encontrado", id);
+            return new CategoryNotFoundException(id);
+        });
+    }
+
     private CategoryDto categoryDto(CategoryEntity entity) {
-        return new CategoryDto(
-                entity.getId(),
-                entity.getName());
+        return new CategoryDto(entity.getId(), entity.getName());
     }
 }

@@ -64,8 +64,6 @@ public class ProductService {
     }
 
     public ProductDto updateProduct(Long id, ProductDto newProductDto) {
-        ProductDto oldProduct = newProductDto;
-
         CategoryEntity category = categoryRepository.findById(newProductDto.categoryId())
                 .orElseThrow(() -> new CategoryNotFoundException(newProductDto.categoryId()));
 
@@ -80,7 +78,7 @@ public class ProductService {
                     return productDto(productRepository.save(entity));
                 }).orElseThrow(() -> {
                     log.warn("Erro: autlização do produto falhou, ID {} não encontrado", id);
-                    throw new ProductNotFoundException(id);
+                    return new ProductNotFoundException(id);
                 });
     }
 
