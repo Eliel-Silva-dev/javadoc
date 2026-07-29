@@ -63,6 +63,27 @@ public class ProductService {
         return productDto(savedEntity);
     }
 
+    public ProductDto updateProduct(Long id, ProductDto newProductDto) {
+        ProductDto oldProduct = newProductDto;
+
+        CategoryEntity category = categoryRepository.findById(newProductDto.categoryId())
+                .orElseThrow(() -> new CategoryNotFoundException(newProductDto.categoryId()));
+
+        log.info("Buscando produto com id {} para atualização", id);
+        return productRepository.findById(id)
+                .map(entity -> {
+                    log.info("Atualizando produto com id {}", id);
+                    entity.setName(newProductDto.name());
+                    entity.setPrice(newProductDto.price());
+                    entity.setCategory(category);
+
+                    return productDto(productRepository.save(entity));
+                }).orElseThrow(() -> {
+                    log.warn("Erro: autlização do produto falhou, ID {} não encontrado", id);
+                    throw new ProductNotFoundException(id);
+                });
+    }
+
     private ProductDto productDto(ProductEntity entity) {
         return new ProductDto(
                 entity.getId(),
