@@ -58,6 +58,10 @@ public class CategoryService {
         });
     }
 
+    public void deleteCategoryById(Long id) {
+        categoryRepository.deleteById(id);
+    }
+
     private CategoryDto categoryDto(CategoryEntity entity) {
         return new CategoryDto(entity.getId(), entity.getName());
     }
