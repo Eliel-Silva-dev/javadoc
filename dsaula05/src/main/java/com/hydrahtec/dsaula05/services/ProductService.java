@@ -82,6 +82,10 @@ public class ProductService {
                 });
     }
 
+    public void deleteProductById(Long id) {
+        productRepository.deleteById(id);
+    }
+
     private ProductDto productDto(ProductEntity entity) {
         return new ProductDto(
                 entity.getId(),
