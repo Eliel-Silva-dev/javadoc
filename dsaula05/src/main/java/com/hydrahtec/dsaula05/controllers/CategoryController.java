@@ -1,6 +1,7 @@
 package com.hydrahtec.dsaula05.controllers;
 
 import com.hydrahtec.dsaula05.models.CategoryDto;
+import com.hydrahtec.dsaula05.models.ProductDto;
 import com.hydrahtec.dsaula05.services.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,12 @@ public class CategoryController {
                 .toUri();
 
         return ResponseEntity.created(uri).body(result);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<CategoryDto> updateProduct(@RequestBody @Valid CategoryDto categoryDto, @PathVariable Long id) {
+        CategoryDto result = categoryService.updateCategory(id, categoryDto);
+
+        return ResponseEntity.ok(result);
     }
 }
