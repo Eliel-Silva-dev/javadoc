@@ -82,8 +82,16 @@ public class ProductService {
                 });
     }
 
-    public void deleteProductById(Long id) {
-        productRepository.deleteById(id);
+    public String deleteProductById(Long id) {
+        productRepository.delete(productRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Erro: falha ao deletar produto ID: {}", id);
+                    return new ProductNotFoundException(id);
+                }));
+
+        log.info("Sucesso: produto com ID: {} deletado", id);
+        return "Produto deletado com sucesso";
+
     }
 
     private ProductDto productDto(ProductEntity entity) {
