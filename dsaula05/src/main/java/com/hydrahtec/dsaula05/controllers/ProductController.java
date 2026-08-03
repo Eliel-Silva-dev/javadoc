@@ -4,7 +4,6 @@ import com.hydrahtec.dsaula05.models.ProductDto;
 import com.hydrahtec.dsaula05.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -52,5 +51,10 @@ public class ProductController {
         ProductDto result = productService.updateProduct(id, productDto);
 
         return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.deleteProductById(id));
     }
 }
