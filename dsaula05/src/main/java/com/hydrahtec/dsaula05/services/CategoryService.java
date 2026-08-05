@@ -2,6 +2,7 @@ package com.hydrahtec.dsaula05.services;
 
 import com.hydrahtec.dsaula05.entities.CategoryEntity;
 import com.hydrahtec.dsaula05.exceptions.CategoryNotFoundException;
+import com.hydrahtec.dsaula05.exceptions.ProductNotFoundException;
 import com.hydrahtec.dsaula05.models.CategoryDto;
 import com.hydrahtec.dsaula05.repositories.CategoryRepository;
 import org.slf4j.Logger;
@@ -58,8 +59,16 @@ public class CategoryService {
         });
     }
 
-    public void deleteCategoryById(Long id) {
-        categoryRepository.deleteById(id);
+    public String deleteProductById(Long id) {
+        categoryRepository.delete(categoryRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Erro: falha ao deletar categoria ID: {}", id);
+                    return new ProductNotFoundException(id);
+                }));
+
+        log.info("Sucesso: categoria com ID: {} deletada", id);
+        return "Categoria deletada com sucesso";
+
     }
 
     private CategoryDto categoryDto(CategoryEntity entity) {
