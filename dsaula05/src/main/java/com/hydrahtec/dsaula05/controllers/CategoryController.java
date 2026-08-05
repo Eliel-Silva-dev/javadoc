@@ -50,14 +50,14 @@ public class CategoryController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CategoryDto> updateProduct(@RequestBody @Valid CategoryDto categoryDto, @PathVariable Long id) {
+    public ResponseEntity<CategoryDto> updateCategory(@RequestBody @Valid CategoryDto categoryDto, @PathVariable Long id) {
         CategoryDto result = categoryService.updateCategory(id, categoryDto);
 
         return ResponseEntity.ok(result);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
-        return ResponseEntity.ok(categoryService.deletecategoryById(id));
+    public ResponseEntity<String> deleteCategoryById(@PathVariable Long id) {
+        return ResponseEntity.ok(categoryService.deleteCategoryById(id));
     }
 }

@@ -41,7 +41,7 @@ public class CategoryService {
     public CategoryDto saveCategory(CategoryDto categoryDto) {
         CategoryEntity newEntity = new CategoryEntity();
         newEntity.setName(categoryDto.name());
-
+        log.info("Sucesso: categoria salva em banco");
         return categoryDto(categoryRepository.save(newEntity));
     }
 
@@ -59,7 +59,7 @@ public class CategoryService {
         });
     }
 
-    public String deleteProductById(Long id) {
+    public String deleteCategoryById(Long id) {
         categoryRepository.delete(categoryRepository.findById(id)
                 .orElseThrow(() -> {
                     log.warn("Erro: falha ao deletar categoria ID: {}", id);
