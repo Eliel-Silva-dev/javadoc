@@ -32,10 +32,9 @@ public class CategoryService {
         return categoryRepository.findById(id).map(entity -> {
             log.info("Categoria com id {} encontrada com sucesso", id);
             return categoryDto(entity);
-        }).orElseThrow(() -> {
-            //log.error("Falha ao buscar categoria: id {} não encontrada", id);
-            return new CategoryNotFoundException(id);
-        });
+        }).orElseThrow(() ->
+                new CategoryNotFoundException(id)
+        );
     }
 
     public CategoryDto saveCategory(CategoryDto categoryDto) {
