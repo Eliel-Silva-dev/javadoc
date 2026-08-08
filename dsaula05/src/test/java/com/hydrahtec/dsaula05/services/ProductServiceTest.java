@@ -121,4 +121,28 @@ class ProductServiceTest {
 
         verify(productRepository, never()).save(any());
     }
+
+    @Test
+    @DisplayName("Deve atualizar entity no banco de dados")
+    void should_update_entity_dataBase() {
+        //ARANGE
+        CategoryEntity category = new CategoryEntity(2L, "Eletronics");
+        ProductDto dto = new ProductDto(null, "PC gamer pro", 1050.00, 2L);
+
+        //retorna a entidade quando o save for chamado
+        when(categoryRepository.findById(2L)).thenReturn(Optional.of(category));
+        when(productRepository.save(any(ProductEntity.class))).thenAnswer(i -> i.getArguments()[0]);
+
+        //ACT
+        ProductDto result = productService.saveProduct(dto);
+
+        //ASSERTIONS
+        ArgumentCaptor<ProductEntity> captor = ArgumentCaptor.forClass(ProductEntity.class);
+        verify(productRepository, times(1)).save(captor.capture());
+
+        ProductEntity savedEntity = captor.getValue();
+        assertThat(savedEntity.getName()).isEqualTo("PC gamer pro");
+        assertThat(savedEntity.getPrice()).isEqualTo(1050.0);
+        assertThat(savedEntity.getCategory().getId()).isEqualTo(2L);
+    }
 }
