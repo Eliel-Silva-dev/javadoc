@@ -127,14 +127,14 @@ class ProductServiceTest {
     void should_update_entity_dataBase() {
         //ARANGE
         CategoryEntity category = new CategoryEntity(2L, "Eletronics");
-        ProductDto dto = new ProductDto(null, "PC gamer pro", 1050.00, 2L);
+        ProductDto dto = new ProductDto(1L, "PC gamer pro", 1050.00, 2L);
 
         //retorna a entidade quando o save for chamado
         when(categoryRepository.findById(2L)).thenReturn(Optional.of(category));
         when(productRepository.save(any(ProductEntity.class))).thenAnswer(i -> i.getArguments()[0]);
 
         //ACT
-        ProductDto result = productService.saveProduct(dto);
+        ProductDto result = productService.updateProduct(dto.id(), dto);
 
         //ASSERTIONS
         ArgumentCaptor<ProductEntity> captor = ArgumentCaptor.forClass(ProductEntity.class);
