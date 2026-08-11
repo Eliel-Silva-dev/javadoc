@@ -108,8 +108,8 @@ class ProductServiceTest {
     }
 
     @Test
-    @DisplayName("Deve lançar exception quando id não existir ao salvar")
-    void sould_throwException_when_notExistId_toSave() {
+    @DisplayName("Deve lançar exception quando id da categoria não existir ao salvar")
+    void sould_throwException_when_notExistCategoryId_toSave() {
         //ARRANGE
         ProductDto dto = new ProductDto(null, "PC gamer", 550.00, 99L);
         when(categoryRepository.findById(99L)).thenReturn(Optional.empty());
@@ -146,6 +146,24 @@ class ProductServiceTest {
         assertThat(savedEntity.getName()).isEqualTo("PC gamer pro");
         assertThat(savedEntity.getPrice()).isEqualTo(1050.0);
         assertThat(savedEntity.getCategory().getId()).isEqualTo(2L);
+    }
+
+    @Test
+    @DisplayName("Deve lançar exception quando id do produto não existir ao atualizar")
+    void sould_throwException_when_notExistId_toUpdate() {
+        //ARRANGE
+        CategoryEntity category = new CategoryEntity(2L, "Eletronics");
+
+        ProductDto productDtoUpdate = new ProductDto(1L, "PC gamer novo", 2000.00, 2L);
+        when(categoryRepository.findById(2L)).thenReturn(Optional.of(category));
+        when(productRepository.findById(99L)).thenReturn(Optional.empty());
+
+        //ACT ASSERTIONS
+        assertThatThrownBy(() -> productService.updateProduct(99L, productDtoUpdate))
+                .isInstanceOf(ProductNotFoundException.class)
+                .hasMessage("Produto não encontrado, ID: 99");
+
+        verify(productRepository, never()).save(any());
     }
 
     @Test
