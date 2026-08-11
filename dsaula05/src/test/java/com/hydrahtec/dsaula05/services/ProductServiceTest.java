@@ -128,10 +128,12 @@ class ProductServiceTest {
         //ARANGE
         CategoryEntity category = new CategoryEntity(2L, "Eletronics");
         ProductDto dto = new ProductDto(1L, "PC gamer pro", 1050.00, 2L);
+        ProductEntity produtoExistente = new ProductEntity(1L, "PC antigo", 800.0, category);
 
         //retorna a entidade quando o save for chamado
         when(categoryRepository.findById(2L)).thenReturn(Optional.of(category));
         when(productRepository.save(any(ProductEntity.class))).thenAnswer(i -> i.getArguments()[0]);
+        when(productRepository.findById(1L)).thenReturn(Optional.of(produtoExistente));
 
         //ACT
         ProductDto result = productService.updateProduct(dto.id(), dto);
