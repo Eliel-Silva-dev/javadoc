@@ -93,17 +93,19 @@ class CategoryServiceTest {
     @DisplayName("Deveria atualizar entidade no banco de dados")
     void should_updateCategory_onDB_when_existsData() {
         //ARANGE
-        CategoryDto category = new CategoryDto(1L, "Eletronic");
+        CategoryDto updateCategory = new CategoryDto(1L, "Eletronics");
+        CategoryEntity existCategory = new CategoryEntity(1L, "Books");
+        when(categoryRepository.findById(1L)).thenReturn(Optional.of(existCategory));
         when(categoryRepository.save(any(CategoryEntity.class))).thenAnswer(i -> i.getArguments()[0]);
 
         //ACT
-        CategoryDto result = categoryService.updateCategory(category.id(), category);
+        CategoryDto result = categoryService.updateCategory(updateCategory.id(), updateCategory);
 
         //ASSERTIONS
         ArgumentCaptor<CategoryEntity> captor = ArgumentCaptor.forClass(CategoryEntity.class);
         verify(categoryRepository, times(1)).save(captor.capture());
 
         CategoryEntity savedCategory = captor.getValue();
-        assertThat(savedCategory.getName()).isEqualTo("Eletronic");
+        assertThat(savedCategory.getName()).isEqualTo("Eletronics");
     }
 }
