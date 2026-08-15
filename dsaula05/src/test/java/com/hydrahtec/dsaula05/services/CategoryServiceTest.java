@@ -66,9 +66,7 @@ class CategoryServiceTest {
         when(categoryRepository.findById(id)).thenReturn(Optional.empty());
 
         //ACT and ASSERTIONS
-        assertThatThrownBy(() -> categoryService.findCategoryById(id))
-                .isInstanceOf(CategoryNotFoundException.class)
-                .hasMessage("Categoria não encontrada, ID: 99");
+        assertThatThrownBy(() -> categoryService.findCategoryById(id)).isInstanceOf(CategoryNotFoundException.class).hasMessage("Categoria não encontrada, ID: 99");
     }
 
     @Test
@@ -107,5 +105,19 @@ class CategoryServiceTest {
 
         CategoryEntity savedCategory = captor.getValue();
         assertThat(savedCategory.getName()).isEqualTo("Eletronics");
+    }
+
+    @Test
+    @DisplayName("Deve lançar exception quando id d categoria não existir ao atualizar")
+    void sould_throwException_when_notExistCategoryId_toUpdate() {
+        //ARRANGE
+        CategoryDto updateCategory = new CategoryDto(1L, "Eletronics");
+
+        when(categoryRepository.findById(99L)).thenReturn(Optional.empty());
+
+        //ACT ASSERTIONS
+        assertThatThrownBy(() -> categoryService.updateCategory(99L, updateCategory)).isInstanceOf(CategoryNotFoundException.class).hasMessage("Categoria não encontrada, ID: 99");
+
+        verify(categoryRepository, never()).save(any());
     }
 }
